@@ -1,3 +1,5 @@
+[![Travis-CI Build Badge](https://api.travis-ci.org/giantswarm/go-client-gen.svg?branch=master)](https://travis-ci.org/giantswarm/go-client-gen)
+
 # go-client-gen
 
 Experimental Go client for the Giant Swarm API, auto-generated based on an OAI/Swagger specification using Swagger Codegen.
