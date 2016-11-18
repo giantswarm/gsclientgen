@@ -7,3 +7,6 @@ go:
   - master
 
 install: make get-deps
+
+notifications:
+  email: false
