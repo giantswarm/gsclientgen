@@ -23,7 +23,7 @@ client := gsclientgen.NewDefaultApi()
 myToken = ""
 
 // get an auth token (aka "Login")
-requestBody := goclient.LoginBody{Password: base64EncodedPass}
+requestBody := gsclientgen.LoginBody{Password: base64EncodedPass}
 loginResponse, _, err := client.UserLogin("email@example.com", requestBody)
 if err != nil {
 	log.Fatal(err)
