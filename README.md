@@ -10,21 +10,16 @@ Documentation can be found in the sub folder `docs`.
 
 ## Usage
 
-```nohighlight
-go get github.com/go-resty/resty
-go get github.com/giantswarm/go-client-gen
-```
-
 In your Go package, import like this:
 
 ```go
-import goclient "github.com/giantswarm/go-client-gen"
+import "github.com/giantswarm/gsclientgen"
 ```
 
 Some usage examples:
 
 ```go
-client := goclient.NewDefaultApi()
+client := gsclientgen.NewDefaultApi()
 myToken = ""
 
 // get an auth token (aka "Login")
