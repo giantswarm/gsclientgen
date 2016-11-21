@@ -25,15 +25,15 @@ Some usage examples:
 
 ```go
 client := goclient.NewDefaultApi()
+myToken = ""
 
 // get an auth token (aka "Login")
-requestBody := goclient.LoginBody{Password: string(base64EncodedPass)}
-loginResponse, _, err := client.UserLogin(email, requestBody)
+requestBody := goclient.LoginBody{Password: base64EncodedPass}
+loginResponse, _, err := client.UserLogin("email@example.com", requestBody)
 if err != nil {
 	log.Fatal(err)
 }
 if loginResponse.StatusCode == 10000 {
-	// successful login
 	myToken = loginResponse.Data.Id
 	fmt.Printf("Successfully logged in. Token is %s.\n", loginResponse.Data.Id)
 }
