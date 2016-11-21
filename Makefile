@@ -20,3 +20,6 @@ validate:
 		--input-spec /swagger-api/yaml/oai-spec.yaml \
 		--lang swagger \
 		--output /tmp/
+
+build:
+	go build ./...
