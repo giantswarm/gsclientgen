@@ -4,7 +4,7 @@
 
 Experimental Go client for the Giant Swarm API, auto-generated based on an OAI/Swagger specification using Swagger Codegen.
 
-This client currently covers only a part of the API.
+Note: This client currently covers only a part of the API. Expect lots of breaking changes within the code. Use at your own risk.
 
 Documentation can be found in the sub folder `docs`.
 
