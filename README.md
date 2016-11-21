@@ -1,4 +1,4 @@
-[![Travis-CI Build Badge](https://api.travis-ci.org/giantswarm/go-client-gen.svg?branch=master)](https://travis-ci.org/giantswarm/go-client-gen)
+[![Travis-CI Build Badge](https://api.travis-ci.org/giantswarm/gsclientgen.svg?branch=master)](https://travis-ci.org/giantswarm/gsclientgen)
 
 # Giant Swarm Golang Client (generated)
 
