@@ -20,7 +20,7 @@ Some usage examples:
 
 ```go
 client := gsclientgen.NewDefaultApi()
-myToken = ""
+myToken := ""
 
 // get an auth token (aka "Login")
 requestBody := gsclientgen.LoginBody{Password: base64EncodedPass}
