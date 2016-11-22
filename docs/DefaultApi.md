@@ -139,7 +139,7 @@ This method takes email and password of a user and returns a new session token. 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **email** | **string**| User email address | 
- **payload** | [**LoginBody**](LoginBody.md)| base64 encoded password | 
+ **payload** | [**LoginBodyModel**](LoginBodyModel.md)| base64 encoded password | 
 
 ### Return type
 

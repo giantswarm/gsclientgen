@@ -10,8 +10,7 @@
 
 package gsclientgen
 
-type LoginBody struct {
+type EmptyObjectModel struct {
 
-	// base64 encoded password
-	Password string `json:"password,omitempty"`
+	None string `json:"none,omitempty"`
 }

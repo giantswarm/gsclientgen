@@ -299,7 +299,7 @@ func (a DefaultApi) GetUserOrganizations(authorization string) (*UserOrganizatio
  * @param payload base64 encoded password
  * @return *LoginResponseModel
  */
-func (a DefaultApi) UserLogin(email string, payload LoginBody) (*LoginResponseModel, *APIResponse, error) {
+func (a DefaultApi) UserLogin(email string, payload LoginBodyModel) (*LoginResponseModel, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Post")
 	// create path and map variables
