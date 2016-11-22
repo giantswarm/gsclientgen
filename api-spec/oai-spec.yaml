@@ -31,7 +31,7 @@ paths:
           required: true
           description: base64 encoded password
           schema:
-            $ref: '#/definitions/LoginBody'
+            $ref: '#/definitions/LoginBodyModel'
       responses:
         "200":
           description: Success
@@ -62,7 +62,7 @@ paths:
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/EmptyObject'
+            $ref: '#/definitions/EmptyObjectModel'
         default:
           description: Unknown error
           schema:
@@ -277,14 +277,14 @@ definitions:
         type: integer
       status_text:
         type: string
-  LoginBody:
+  LoginBodyModel:
     type: object
     required: ["password"]
     properties:
       password:
         type: string
         description: base64 encoded password
-  EmptyObject:
+  EmptyObjectModel:
     type: object
     properties:
       none:
