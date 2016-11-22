@@ -12,6 +12,7 @@ generate:
 		--lang go \
 		--config /swagger-api/out/swagger-codegen-conf.json \
 		--output /swagger-api/out
+	gofmt -s -l -w .
 
 validate:
 	docker run --rm -it \
