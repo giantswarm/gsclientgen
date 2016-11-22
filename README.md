@@ -24,7 +24,7 @@ myToken = ""
 
 // get an auth token (aka "Login")
 requestBody := gsclientgen.LoginBody{Password: base64EncodedPass}
-loginResponse, _, err := client.UserLogin("email@example.com", requestBody)
+loginResponse, _, err := client.UserLoginModel("email@example.com", requestBody)
 if err != nil {
 	log.Fatal(err)
 }
