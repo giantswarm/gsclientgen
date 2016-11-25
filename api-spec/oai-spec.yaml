@@ -21,6 +21,9 @@ paths:
         description: More information
         url: "http://firstgen-docs.giantswarm.io/reference/api/v1/#password-authentication"
       parameters:
+        - $ref: '#/parameters/XRequestIDHeader'
+        - $ref: '#/parameters/XGiantSwarmActivityHeader'
+        - $ref: '#/parameters/XGiantSwarmCmdLineHeader'
         - name: email
           in: path
           type: string
@@ -51,6 +54,9 @@ paths:
       summary: Expire the currently used auth token
       parameters:
         - $ref: '#/parameters/RequiredAuthorizationHeader'
+        - $ref: '#/parameters/XRequestIDHeader'
+        - $ref: '#/parameters/XGiantSwarmActivityHeader'
+        - $ref: '#/parameters/XGiantSwarmCmdLineHeader'
       produces:
         - application/json
         - text/plain
@@ -74,6 +80,9 @@ paths:
       description: Returns a list of organizations of which the current user is a member
       parameters:
         - $ref: '#/parameters/RequiredAuthorizationHeader'
+        - $ref: '#/parameters/XRequestIDHeader'
+        - $ref: '#/parameters/XGiantSwarmActivityHeader'
+        - $ref: '#/parameters/XGiantSwarmCmdLineHeader'
       responses:
         "200":
           description: Success
@@ -89,6 +98,9 @@ paths:
       summary: Get clusters for organization
       parameters:
         - $ref: '#/parameters/RequiredAuthorizationHeader'
+        - $ref: '#/parameters/XRequestIDHeader'
+        - $ref: '#/parameters/XGiantSwarmActivityHeader'
+        - $ref: '#/parameters/XGiantSwarmCmdLineHeader'
         - name: organization_name
           in: path
           required: true
@@ -108,6 +120,9 @@ paths:
       summary: Get key-pairs for cluster
       parameters:
         - $ref: '#/parameters/RequiredAuthorizationHeader'
+        - $ref: '#/parameters/XRequestIDHeader'
+        - $ref: '#/parameters/XGiantSwarmActivityHeader'
+        - $ref: '#/parameters/XGiantSwarmCmdLineHeader'
         - name: cluster_id
           in: path
           required: true
@@ -126,6 +141,9 @@ paths:
       summary: Add key-pair for cluster
       parameters:
         - $ref: '#/parameters/RequiredAuthorizationHeader'
+        - $ref: '#/parameters/XRequestIDHeader'
+        - $ref: '#/parameters/XGiantSwarmActivityHeader'
+        - $ref: '#/parameters/XGiantSwarmCmdLineHeader'
         - name: cluster_id
           in: path
           required: true
@@ -297,3 +315,22 @@ parameters:
     type: string
     required: true
     description: Header to pass an authorization token. The value has to be in the form `giantswarm <token>`.
+  XRequestIDHeader:
+    name: X-Request-ID
+    in: header
+    type: string
+    required: false
+    description: A randomly generated key that can be used to track a request throughout services of Giant Swarm
+  XGiantSwarmActivityHeader:
+    name: X-Giant-Swarm-Activity
+    in: header
+    type: string
+    required: false
+    description: Name of an activity to track, like "list-clusters"
+  XGiantSwarmCmdLineHeader:
+    name: X-Giant-Swarm-CmdLine
+    in: header
+    type: string
+    required: false
+    description: If activity has been issued by a CLI, this header can contain the command line
+
