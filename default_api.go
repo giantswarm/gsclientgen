@@ -43,9 +43,12 @@ func NewDefaultApiWithBasePath(basePath string) *DefaultApi {
  * @param authorization Header to pass an authorization token. The value has to be in the form &#x60;giantswarm &lt;token&gt;&#x60;.
  * @param clusterId ID of the cluster to create the key-pair for
  * @param body Description and expiry time for the new key-pair
+ * @param xRequestID A randomly generated key that can be used to track a request throughout services of Giant Swarm
+ * @param xGiantSwarmActivity Name of an activity to track, like \&quot;list-clusters\&quot;
+ * @param xGiantSwarmCmdLine If activity has been issued by a CLI, this header can contain the command line
  * @return *AddKeyPairResponseModel
  */
-func (a DefaultApi) AddKeyPair(authorization string, clusterId string, body AddKeyPairBody) (*AddKeyPairResponseModel, *APIResponse, error) {
+func (a DefaultApi) AddKeyPair(authorization string, clusterId string, body AddKeyPairBody, xRequestID string, xGiantSwarmActivity string, xGiantSwarmCmdLine string) (*AddKeyPairResponseModel, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Post")
 	// create path and map variables
@@ -83,6 +86,12 @@ func (a DefaultApi) AddKeyPair(authorization string, clusterId string, body AddK
 	}
 	// header params "Authorization"
 	localVarHeaderParams["Authorization"] = a.Configuration.APIClient.ParameterToString(authorization, "")
+	// header params "X-Request-ID"
+	localVarHeaderParams["X-Request-ID"] = a.Configuration.APIClient.ParameterToString(xRequestID, "")
+	// header params "X-Giant-Swarm-Activity"
+	localVarHeaderParams["X-Giant-Swarm-Activity"] = a.Configuration.APIClient.ParameterToString(xGiantSwarmActivity, "")
+	// header params "X-Giant-Swarm-CmdLine"
+	localVarHeaderParams["X-Giant-Swarm-CmdLine"] = a.Configuration.APIClient.ParameterToString(xGiantSwarmCmdLine, "")
 	// body params
 	localVarPostBody = &body
 	var successPayload = new(AddKeyPairResponseModel)
@@ -108,9 +117,12 @@ func (a DefaultApi) AddKeyPair(authorization string, clusterId string, body AddK
  *
  * @param authorization Header to pass an authorization token. The value has to be in the form &#x60;giantswarm &lt;token&gt;&#x60;.
  * @param clusterId
+ * @param xRequestID A randomly generated key that can be used to track a request throughout services of Giant Swarm
+ * @param xGiantSwarmActivity Name of an activity to track, like \&quot;list-clusters\&quot;
+ * @param xGiantSwarmCmdLine If activity has been issued by a CLI, this header can contain the command line
  * @return *KeyPairsResponseModel
  */
-func (a DefaultApi) GetKeyPairs(authorization string, clusterId string) (*KeyPairsResponseModel, *APIResponse, error) {
+func (a DefaultApi) GetKeyPairs(authorization string, clusterId string, xRequestID string, xGiantSwarmActivity string, xGiantSwarmCmdLine string) (*KeyPairsResponseModel, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Get")
 	// create path and map variables
@@ -148,6 +160,12 @@ func (a DefaultApi) GetKeyPairs(authorization string, clusterId string) (*KeyPai
 	}
 	// header params "Authorization"
 	localVarHeaderParams["Authorization"] = a.Configuration.APIClient.ParameterToString(authorization, "")
+	// header params "X-Request-ID"
+	localVarHeaderParams["X-Request-ID"] = a.Configuration.APIClient.ParameterToString(xRequestID, "")
+	// header params "X-Giant-Swarm-Activity"
+	localVarHeaderParams["X-Giant-Swarm-Activity"] = a.Configuration.APIClient.ParameterToString(xGiantSwarmActivity, "")
+	// header params "X-Giant-Swarm-CmdLine"
+	localVarHeaderParams["X-Giant-Swarm-CmdLine"] = a.Configuration.APIClient.ParameterToString(xGiantSwarmCmdLine, "")
 	var successPayload = new(KeyPairsResponseModel)
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
@@ -171,9 +189,12 @@ func (a DefaultApi) GetKeyPairs(authorization string, clusterId string) (*KeyPai
  *
  * @param authorization Header to pass an authorization token. The value has to be in the form &#x60;giantswarm &lt;token&gt;&#x60;.
  * @param organizationName
+ * @param xRequestID A randomly generated key that can be used to track a request throughout services of Giant Swarm
+ * @param xGiantSwarmActivity Name of an activity to track, like \&quot;list-clusters\&quot;
+ * @param xGiantSwarmCmdLine If activity has been issued by a CLI, this header can contain the command line
  * @return *OrganizationClustersResponseModel
  */
-func (a DefaultApi) GetOrganizationClusters(authorization string, organizationName string) (*OrganizationClustersResponseModel, *APIResponse, error) {
+func (a DefaultApi) GetOrganizationClusters(authorization string, organizationName string, xRequestID string, xGiantSwarmActivity string, xGiantSwarmCmdLine string) (*OrganizationClustersResponseModel, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Get")
 	// create path and map variables
@@ -211,6 +232,12 @@ func (a DefaultApi) GetOrganizationClusters(authorization string, organizationNa
 	}
 	// header params "Authorization"
 	localVarHeaderParams["Authorization"] = a.Configuration.APIClient.ParameterToString(authorization, "")
+	// header params "X-Request-ID"
+	localVarHeaderParams["X-Request-ID"] = a.Configuration.APIClient.ParameterToString(xRequestID, "")
+	// header params "X-Giant-Swarm-Activity"
+	localVarHeaderParams["X-Giant-Swarm-Activity"] = a.Configuration.APIClient.ParameterToString(xGiantSwarmActivity, "")
+	// header params "X-Giant-Swarm-CmdLine"
+	localVarHeaderParams["X-Giant-Swarm-CmdLine"] = a.Configuration.APIClient.ParameterToString(xGiantSwarmCmdLine, "")
 	var successPayload = new(OrganizationClustersResponseModel)
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
@@ -234,9 +261,12 @@ func (a DefaultApi) GetOrganizationClusters(authorization string, organizationNa
  * Returns a list of organizations of which the current user is a member
  *
  * @param authorization Header to pass an authorization token. The value has to be in the form &#x60;giantswarm &lt;token&gt;&#x60;.
+ * @param xRequestID A randomly generated key that can be used to track a request throughout services of Giant Swarm
+ * @param xGiantSwarmActivity Name of an activity to track, like \&quot;list-clusters\&quot;
+ * @param xGiantSwarmCmdLine If activity has been issued by a CLI, this header can contain the command line
  * @return *UserOrganizationsResponseModel
  */
-func (a DefaultApi) GetUserOrganizations(authorization string) (*UserOrganizationsResponseModel, *APIResponse, error) {
+func (a DefaultApi) GetUserOrganizations(authorization string, xRequestID string, xGiantSwarmActivity string, xGiantSwarmCmdLine string) (*UserOrganizationsResponseModel, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Get")
 	// create path and map variables
@@ -273,6 +303,12 @@ func (a DefaultApi) GetUserOrganizations(authorization string) (*UserOrganizatio
 	}
 	// header params "Authorization"
 	localVarHeaderParams["Authorization"] = a.Configuration.APIClient.ParameterToString(authorization, "")
+	// header params "X-Request-ID"
+	localVarHeaderParams["X-Request-ID"] = a.Configuration.APIClient.ParameterToString(xRequestID, "")
+	// header params "X-Giant-Swarm-Activity"
+	localVarHeaderParams["X-Giant-Swarm-Activity"] = a.Configuration.APIClient.ParameterToString(xGiantSwarmActivity, "")
+	// header params "X-Giant-Swarm-CmdLine"
+	localVarHeaderParams["X-Giant-Swarm-CmdLine"] = a.Configuration.APIClient.ParameterToString(xGiantSwarmCmdLine, "")
 	var successPayload = new(UserOrganizationsResponseModel)
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
@@ -297,9 +333,12 @@ func (a DefaultApi) GetUserOrganizations(authorization string) (*UserOrganizatio
  *
  * @param email User email address
  * @param payload base64 encoded password
+ * @param xRequestID A randomly generated key that can be used to track a request throughout services of Giant Swarm
+ * @param xGiantSwarmActivity Name of an activity to track, like \&quot;list-clusters\&quot;
+ * @param xGiantSwarmCmdLine If activity has been issued by a CLI, this header can contain the command line
  * @return *LoginResponseModel
  */
-func (a DefaultApi) UserLogin(email string, payload LoginBodyModel) (*LoginResponseModel, *APIResponse, error) {
+func (a DefaultApi) UserLogin(email string, payload LoginBodyModel, xRequestID string, xGiantSwarmActivity string, xGiantSwarmCmdLine string) (*LoginResponseModel, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Post")
 	// create path and map variables
@@ -335,6 +374,12 @@ func (a DefaultApi) UserLogin(email string, payload LoginBodyModel) (*LoginRespo
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
+	// header params "X-Request-ID"
+	localVarHeaderParams["X-Request-ID"] = a.Configuration.APIClient.ParameterToString(xRequestID, "")
+	// header params "X-Giant-Swarm-Activity"
+	localVarHeaderParams["X-Giant-Swarm-Activity"] = a.Configuration.APIClient.ParameterToString(xGiantSwarmActivity, "")
+	// header params "X-Giant-Swarm-CmdLine"
+	localVarHeaderParams["X-Giant-Swarm-CmdLine"] = a.Configuration.APIClient.ParameterToString(xGiantSwarmCmdLine, "")
 	// body params
 	localVarPostBody = &payload
 	var successPayload = new(LoginResponseModel)
@@ -359,9 +404,12 @@ func (a DefaultApi) UserLogin(email string, payload LoginBodyModel) (*LoginRespo
  * Expire the currently used auth token
  *
  * @param authorization Header to pass an authorization token. The value has to be in the form &#x60;giantswarm &lt;token&gt;&#x60;.
+ * @param xRequestID A randomly generated key that can be used to track a request throughout services of Giant Swarm
+ * @param xGiantSwarmActivity Name of an activity to track, like \&quot;list-clusters\&quot;
+ * @param xGiantSwarmCmdLine If activity has been issued by a CLI, this header can contain the command line
  * @return *GenericResponseModel
  */
-func (a DefaultApi) UserLogout(authorization string) (*GenericResponseModel, *APIResponse, error) {
+func (a DefaultApi) UserLogout(authorization string, xRequestID string, xGiantSwarmActivity string, xGiantSwarmCmdLine string) (*GenericResponseModel, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Post")
 	// create path and map variables
@@ -399,6 +447,12 @@ func (a DefaultApi) UserLogout(authorization string) (*GenericResponseModel, *AP
 	}
 	// header params "Authorization"
 	localVarHeaderParams["Authorization"] = a.Configuration.APIClient.ParameterToString(authorization, "")
+	// header params "X-Request-ID"
+	localVarHeaderParams["X-Request-ID"] = a.Configuration.APIClient.ParameterToString(xRequestID, "")
+	// header params "X-Giant-Swarm-Activity"
+	localVarHeaderParams["X-Giant-Swarm-Activity"] = a.Configuration.APIClient.ParameterToString(xGiantSwarmActivity, "")
+	// header params "X-Giant-Swarm-CmdLine"
+	localVarHeaderParams["X-Giant-Swarm-CmdLine"] = a.Configuration.APIClient.ParameterToString(xGiantSwarmCmdLine, "")
 	var successPayload = new(GenericResponseModel)
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
