@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **AddKeyPair**
-> AddKeyPairResponseModel AddKeyPair($authorization, $clusterId, $body)
+> AddKeyPairResponseModel AddKeyPair($authorization, $clusterId, $body, $xRequestID, $xGiantSwarmActivity, $xGiantSwarmCmdLine)
 
 Add key-pair for cluster
 
@@ -25,6 +25,9 @@ Name | Type | Description  | Notes
  **authorization** | **string**| Header to pass an authorization token. The value has to be in the form &#x60;giantswarm &lt;token&gt;&#x60;. | 
  **clusterId** | **string**| ID of the cluster to create the key-pair for | 
  **body** | [**AddKeyPairBody**](AddKeyPairBody.md)| Description and expiry time for the new key-pair | 
+ **xRequestID** | **string**| A randomly generated key that can be used to track a request throughout services of Giant Swarm | [optional] 
+ **xGiantSwarmActivity** | **string**| Name of an activity to track, like \&quot;list-clusters\&quot; | [optional] 
+ **xGiantSwarmCmdLine** | **string**| If activity has been issued by a CLI, this header can contain the command line | [optional] 
 
 ### Return type
 
@@ -42,7 +45,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetKeyPairs**
-> KeyPairsResponseModel GetKeyPairs($authorization, $clusterId)
+> KeyPairsResponseModel GetKeyPairs($authorization, $clusterId, $xRequestID, $xGiantSwarmActivity, $xGiantSwarmCmdLine)
 
 Get key-pairs for cluster
 
@@ -53,6 +56,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **string**| Header to pass an authorization token. The value has to be in the form &#x60;giantswarm &lt;token&gt;&#x60;. | 
  **clusterId** | **string**|  | 
+ **xRequestID** | **string**| A randomly generated key that can be used to track a request throughout services of Giant Swarm | [optional] 
+ **xGiantSwarmActivity** | **string**| Name of an activity to track, like \&quot;list-clusters\&quot; | [optional] 
+ **xGiantSwarmCmdLine** | **string**| If activity has been issued by a CLI, this header can contain the command line | [optional] 
 
 ### Return type
 
@@ -70,7 +76,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetOrganizationClusters**
-> OrganizationClustersResponseModel GetOrganizationClusters($authorization, $organizationName)
+> OrganizationClustersResponseModel GetOrganizationClusters($authorization, $organizationName, $xRequestID, $xGiantSwarmActivity, $xGiantSwarmCmdLine)
 
 Get clusters for organization
 
@@ -81,6 +87,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **string**| Header to pass an authorization token. The value has to be in the form &#x60;giantswarm &lt;token&gt;&#x60;. | 
  **organizationName** | **string**|  | 
+ **xRequestID** | **string**| A randomly generated key that can be used to track a request throughout services of Giant Swarm | [optional] 
+ **xGiantSwarmActivity** | **string**| Name of an activity to track, like \&quot;list-clusters\&quot; | [optional] 
+ **xGiantSwarmCmdLine** | **string**| If activity has been issued by a CLI, this header can contain the command line | [optional] 
 
 ### Return type
 
@@ -98,7 +107,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetUserOrganizations**
-> UserOrganizationsResponseModel GetUserOrganizations($authorization)
+> UserOrganizationsResponseModel GetUserOrganizations($authorization, $xRequestID, $xGiantSwarmActivity, $xGiantSwarmCmdLine)
 
 Get organizations for user
 
@@ -110,6 +119,9 @@ Returns a list of organizations of which the current user is a member
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **string**| Header to pass an authorization token. The value has to be in the form &#x60;giantswarm &lt;token&gt;&#x60;. | 
+ **xRequestID** | **string**| A randomly generated key that can be used to track a request throughout services of Giant Swarm | [optional] 
+ **xGiantSwarmActivity** | **string**| Name of an activity to track, like \&quot;list-clusters\&quot; | [optional] 
+ **xGiantSwarmCmdLine** | **string**| If activity has been issued by a CLI, this header can contain the command line | [optional] 
 
 ### Return type
 
@@ -127,7 +139,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UserLogin**
-> LoginResponseModel UserLogin($email, $payload)
+> LoginResponseModel UserLogin($email, $payload, $xRequestID, $xGiantSwarmActivity, $xGiantSwarmCmdLine)
 
 Log in as a user
 
@@ -140,6 +152,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **email** | **string**| User email address | 
  **payload** | [**LoginBodyModel**](LoginBodyModel.md)| base64 encoded password | 
+ **xRequestID** | **string**| A randomly generated key that can be used to track a request throughout services of Giant Swarm | [optional] 
+ **xGiantSwarmActivity** | **string**| Name of an activity to track, like \&quot;list-clusters\&quot; | [optional] 
+ **xGiantSwarmCmdLine** | **string**| If activity has been issued by a CLI, this header can contain the command line | [optional] 
 
 ### Return type
 
@@ -157,7 +172,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UserLogout**
-> GenericResponseModel UserLogout($authorization)
+> GenericResponseModel UserLogout($authorization, $xRequestID, $xGiantSwarmActivity, $xGiantSwarmCmdLine)
 
 Expire the currently used auth token
 
@@ -167,6 +182,9 @@ Expire the currently used auth token
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **string**| Header to pass an authorization token. The value has to be in the form &#x60;giantswarm &lt;token&gt;&#x60;. | 
+ **xRequestID** | **string**| A randomly generated key that can be used to track a request throughout services of Giant Swarm | [optional] 
+ **xGiantSwarmActivity** | **string**| Name of an activity to track, like \&quot;list-clusters\&quot; | [optional] 
+ **xGiantSwarmCmdLine** | **string**| If activity has been issued by a CLI, this header can contain the command line | [optional] 
 
 ### Return type
 
