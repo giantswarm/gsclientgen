@@ -10,8 +10,10 @@
 
 package gsclientgen
 
-type V4GenericResponseModel struct {
-	Code string `json:"code,omitempty"`
+type V3AddKeyPairResponse struct {
+	StatusCode int32 `json:"status_code,omitempty"`
 
-	Message string `json:"message,omitempty"`
+	StatusText string `json:"status_text,omitempty"`
+
+	Data V3AddKeyPairResponseData `json:"data,omitempty"`
 }

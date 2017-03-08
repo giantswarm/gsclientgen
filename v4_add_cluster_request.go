@@ -10,20 +10,17 @@
 
 package gsclientgen
 
-type V4ClusterDetailsModel struct {
-	Id string `json:"id,omitempty"`
+// Request model for creating a new cluster
+type V4AddClusterRequest struct {
 
-	Name string `json:"name,omitempty"`
-
-	ApiEndpoint string `json:"api_endpoint,omitempty"`
-
-	CreateDate string `json:"create_date,omitempty"`
-
+	// Name of the organization owning the cluster
 	Owner string `json:"owner,omitempty"`
 
+	// Cluster name
+	Name string `json:"name,omitempty"`
+
+	// Kubernetes version number
 	KubernetesVersion string `json:"kubernetes_version,omitempty"`
 
 	Workers []V4NodeDefinition `json:"workers,omitempty"`
-
-	Masters []V4NodeDefinition `json:"masters,omitempty"`
 }
