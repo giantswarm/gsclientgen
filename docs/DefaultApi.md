@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AddCluster**](DefaultApi.md#AddCluster) | **Post** /v4/clusters/ | Create cluster
 [**AddKeyPair**](DefaultApi.md#AddKeyPair) | **Post** /v3/clusters/{cluster_id}/key-pairs/ | Add key-pair for cluster
+[**DeleteCluster**](DefaultApi.md#DeleteCluster) | **Delete** /v4/clusters/{cluster_id}/ | Delete cluster
 [**GetCluster**](DefaultApi.md#GetCluster) | **Get** /v4/clusters/{cluster_id}/ | Get cluster details
 [**GetKeyPairs**](DefaultApi.md#GetKeyPairs) | **Get** /v3/clusters/{cluster_id}/key-pairs/ | Get key-pairs for cluster
 [**GetOrganizationClusters**](DefaultApi.md#GetOrganizationClusters) | **Get** /v3/orgs/{organization_name}/clusters/ | Get clusters for organization
@@ -79,6 +80,39 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **DeleteCluster**
+> V4GenericResponse DeleteCluster($authorization, $clusterId, $xRequestID, $xGiantSwarmActivity, $xGiantSwarmCmdLine)
+
+Delete cluster
+
+This operation allows to delete a cluster.  __Caution:__ Deleting a cluster causes the termination of all workloads running on the cluster. Data stored on the worker nodes will be lost. There is no way to undo this operation.  The response is sent as soon as the request is validated. At that point, workloads might still be running on the cluster and may be accessible for a little wile, until the cluster is actually deleted. 
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **string**| Header to pass an authorization token. The value has to be in the form &#x60;giantswarm &lt;token&gt;&#x60;. | 
+ **clusterId** | **string**| Cluster ID | 
+ **xRequestID** | **string**| A randomly generated key that can be used to track a request throughout services of Giant Swarm | [optional] 
+ **xGiantSwarmActivity** | **string**| Name of an activity to track, like \&quot;list-clusters\&quot; | [optional] 
+ **xGiantSwarmCmdLine** | **string**| If activity has been issued by a CLI, this header can contain the command line | [optional] 
+
+### Return type
+
+[**V4GenericResponse**](V4GenericResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **GetCluster**
 > V4ClusterDetailsModel GetCluster($authorization, $clusterId, $xRequestID, $xGiantSwarmActivity, $xGiantSwarmCmdLine)
 
@@ -90,7 +124,7 @@ Get cluster details
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **string**| Header to pass an authorization token. The value has to be in the form &#x60;giantswarm &lt;token&gt;&#x60;. | 
- **clusterId** | **string**|  | 
+ **clusterId** | **string**| Cluster ID | 
  **xRequestID** | **string**| A randomly generated key that can be used to track a request throughout services of Giant Swarm | [optional] 
  **xGiantSwarmActivity** | **string**| Name of an activity to track, like \&quot;list-clusters\&quot; | [optional] 
  **xGiantSwarmCmdLine** | **string**| If activity has been issued by a CLI, this header can contain the command line | [optional] 

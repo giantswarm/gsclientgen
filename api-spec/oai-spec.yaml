@@ -222,10 +222,7 @@ paths:
         - $ref: '#/parameters/XRequestIDHeader'
         - $ref: '#/parameters/XGiantSwarmActivityHeader'
         - $ref: '#/parameters/XGiantSwarmCmdLineHeader'
-        - name: cluster_id
-          in: path
-          required: true
-          type: string
+        - $ref: '#/parameters/RequiredClusterIdPathParameter'
       responses:
         "200":
           description: Success
@@ -233,6 +230,30 @@ paths:
             $ref: '#/definitions/V4ClusterDetailsModel'
         default:
           description: Unknown error
+          schema:
+            $ref: '#/definitions/V4GenericResponse'
+    delete:
+      operationId: deleteCluster
+      parameters:
+        - $ref: '#/parameters/RequiredAuthorizationHeader'
+        - $ref: '#/parameters/XRequestIDHeader'
+        - $ref: '#/parameters/XGiantSwarmActivityHeader'
+        - $ref: '#/parameters/XGiantSwarmCmdLineHeader'
+        - $ref: '#/parameters/RequiredClusterIdPathParameter'
+      summary: Delete cluster
+      description: |
+        This operation allows to delete a cluster.
+
+        __Caution:__ Deleting a cluster causes the termination of all workloads running on the cluster. Data stored on the worker nodes will be lost. There is no way to undo this operation.
+
+        The response is sent as soon as the request is validated. At that point, workloads might still be running on the cluster and may be accessible for a little wile, until the cluster is actually deleted.
+      responses:
+        "202":
+          description: Deleting cluster
+          schema:
+            $ref: '#/definitions/V4GenericResponse'
+        default:
+          description: Error
           schema:
             $ref: '#/definitions/V4GenericResponse'
 
@@ -507,6 +528,12 @@ parameters:
     type: string
     required: true
     description: Header to pass an authorization token. The value has to be in the form `giantswarm <token>`.
+  RequiredClusterIdPathParameter:
+    name: cluster_id
+    in: path
+    required: true
+    type: string
+    description: Cluster ID
   XRequestIDHeader:
     name: X-Request-ID
     in: header
