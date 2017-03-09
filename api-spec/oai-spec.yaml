@@ -165,28 +165,7 @@ paths:
           schema:
             $ref: '#/definitions/GenericResponseModel'
 
-  /v4/clusters/{cluster_id}/:
-    get:
-      operationId: getCluster
-      summary: Get cluster details
-      parameters:
-        - $ref: '#/parameters/RequiredAuthorizationHeader'
-        - $ref: '#/parameters/XRequestIDHeader'
-        - $ref: '#/parameters/XGiantSwarmActivityHeader'
-        - $ref: '#/parameters/XGiantSwarmCmdLineHeader'
-        - name: cluster_id
-          in: path
-          required: true
-          type: string
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: '#/definitions/V4ClusterDetailsModel'
-        default:
-          description: Unknown error
-          schema:
-            $ref: '#/definitions/V4GenericResponse'
+  /v4/clusters/:
     post:
       operationId: addCluster
       summary: Create cluster
@@ -230,6 +209,30 @@ paths:
               }
         default:
           description: Error
+          schema:
+            $ref: '#/definitions/V4GenericResponse'
+
+
+  /v4/clusters/{cluster_id}/:
+    get:
+      operationId: getCluster
+      summary: Get cluster details
+      parameters:
+        - $ref: '#/parameters/RequiredAuthorizationHeader'
+        - $ref: '#/parameters/XRequestIDHeader'
+        - $ref: '#/parameters/XGiantSwarmActivityHeader'
+        - $ref: '#/parameters/XGiantSwarmCmdLineHeader'
+        - name: cluster_id
+          in: path
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/V4ClusterDetailsModel'
+        default:
+          description: Unknown error
           schema:
             $ref: '#/definitions/V4GenericResponse'
 

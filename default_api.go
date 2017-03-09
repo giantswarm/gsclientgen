@@ -52,7 +52,7 @@ func (a DefaultApi) AddCluster(authorization string, body V4AddClusterRequest, x
 
 	var localVarHttpMethod = strings.ToUpper("Post")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/v4/clusters/{cluster_id}/"
+	localVarPath := a.Configuration.BasePath + "/v4/clusters/"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

@@ -4,7 +4,7 @@ All URIs are relative to *https://api.giantswarm.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddCluster**](DefaultApi.md#AddCluster) | **Post** /v4/clusters/{cluster_id}/ | Create cluster
+[**AddCluster**](DefaultApi.md#AddCluster) | **Post** /v4/clusters/ | Create cluster
 [**AddKeyPair**](DefaultApi.md#AddKeyPair) | **Post** /v3/clusters/{cluster_id}/key-pairs/ | Add key-pair for cluster
 [**GetCluster**](DefaultApi.md#GetCluster) | **Get** /v4/clusters/{cluster_id}/ | Get cluster details
 [**GetKeyPairs**](DefaultApi.md#GetKeyPairs) | **Get** /v3/clusters/{cluster_id}/key-pairs/ | Get key-pairs for cluster
