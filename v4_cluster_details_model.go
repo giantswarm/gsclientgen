@@ -23,7 +23,7 @@ type V4ClusterDetailsModel struct {
 
 	KubernetesVersion string `json:"kubernetes_version,omitempty"`
 
-	Workers []V4NodeDefinition `json:"workers,omitempty"`
+	Workers []V4NodeDefinitionResponse `json:"workers,omitempty"`
 
-	Masters []V4NodeDefinition `json:"masters,omitempty"`
+	Masters []V4NodeDefinitionResponse `json:"masters,omitempty"`
 }

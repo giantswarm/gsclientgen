@@ -294,6 +294,7 @@ definitions:
         type: string
       create_date:
         type: string
+
   V4ClusterDetailsModel:
     type: object
     required: ["id"]
@@ -313,11 +314,12 @@ definitions:
       workers:
         type: array
         items:
-          $ref: '#/definitions/V4NodeDefinition'
+          $ref: '#/definitions/V4NodeDefinitionResponse'
       masters:
         type: array
         items:
-          $ref: '#/definitions/V4NodeDefinition'
+          $ref: '#/definitions/V4NodeDefinitionResponse'
+
   KeyPairModel:
     type: object
     required: ["id", "description", "ttl_hours"]
@@ -435,6 +437,36 @@ definitions:
 
   # Definition of a cluster node
   V4NodeDefinition:
+    type: object
+    properties:
+      memory:
+        type: object
+        properties:
+          size_gb:
+            type: integer
+            description: RAM size in GB
+      storage:
+        type: object
+        properties:
+          size_gb:
+            type: integer
+            description: Node storage size in GB
+      cpu:
+        type: object
+        properties:
+          cores:
+            type: integer
+            description: Number of CPU cores
+      labels:
+        type: object
+        additionalProperties: true
+
+  # Definition of a cluster node
+  # only for the purpose of fetching cluster details
+  #
+  # TODO: Remove this and use V4NodeDefinition as soon as
+  # issue https://github.com/giantswarm/api/issues/322 is solved
+  V4NodeDefinitionResponse:
     type: object
     properties:
       memory:
