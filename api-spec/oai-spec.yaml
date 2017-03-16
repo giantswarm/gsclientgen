@@ -136,6 +136,8 @@ paths:
           description: Unknown error
           schema:
             $ref: '#/definitions/GenericResponseModel'
+
+  /v4/clusters/{cluster_id}/key-pairs/:
     post:
       operationId: addKeyPair
       summary: Add key-pair for cluster
@@ -295,30 +297,22 @@ definitions:
         format: int32
   AddKeyPairResponseModel:
     type: object
-    required: ["status_code", "status_text", "data"]
+    required: ["id"]
     properties:
-      status_code:
-        type: integer
-      status_text:
+      id:
         type: string
-      data:
-        type: object
-        required: ["id"]
-        properties:
-          id:
-            type: string
-          description:
-            type: string
-          ttl_hours:
-            type: integer
-          create_date:
-            type: string
-          certificate_authority_data:
-            type: string
-          client_key_data:
-            type: string
-          client_certificate_data:
-            type: string
+      description:
+        type: string
+      ttl_hours:
+        type: integer
+      create_date:
+        type: string
+      certificate_authority_data:
+        type: string
+      client_key_data:
+        type: string
+      client_certificate_data:
+        type: string
   KeyPairsResponseModel:
     type: object
     required: ["data", "status_code", "status_text"]

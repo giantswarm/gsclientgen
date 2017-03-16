@@ -11,9 +11,17 @@
 package gsclientgen
 
 type AddKeyPairResponseModel struct {
-	StatusCode int32 `json:"status_code,omitempty"`
+	Id string `json:"id,omitempty"`
 
-	StatusText string `json:"status_text,omitempty"`
+	Description string `json:"description,omitempty"`
 
-	Data AddKeyPairResponseModelData `json:"data,omitempty"`
+	TtlHours int32 `json:"ttl_hours,omitempty"`
+
+	CreateDate string `json:"create_date,omitempty"`
+
+	CertificateAuthorityData string `json:"certificate_authority_data,omitempty"`
+
+	ClientKeyData string `json:"client_key_data,omitempty"`
+
+	ClientCertificateData string `json:"client_certificate_data,omitempty"`
 }

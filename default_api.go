@@ -52,7 +52,7 @@ func (a DefaultApi) AddKeyPair(authorization string, clusterId string, body AddK
 
 	var localVarHttpMethod = strings.ToUpper("Post")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/v3/clusters/{cluster_id}/key-pairs/"
+	localVarPath := a.Configuration.BasePath + "/v4/clusters/{cluster_id}/key-pairs/"
 	localVarPath = strings.Replace(localVarPath, "{"+"cluster_id"+"}", fmt.Sprintf("%v", clusterId), -1)
 
 	localVarHeaderParams := make(map[string]string)
