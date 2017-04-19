@@ -1,3 +1,4 @@
+---
 swagger: "2.0"
 host: api.giantswarm.io
 schemes:
@@ -5,7 +6,8 @@ schemes:
 info:
   title: Giant Swarm legacy API
   version: "legacy"
-  description: "Caution: This is an incomplete description of some legacy API functions."
+  description: |
+    Caution: This is an incomplete description of some legacy API functions.
 consumes:
   - application/json
 produces:
@@ -16,10 +18,14 @@ paths:
     post:
       operationId: userLogin
       summary: Log in as a user
-      description: This method takes email and password of a user and returns a new session token. The token can be found in the `data.Id` field of the response object.
+      description: |
+        This method takes email and password of a user and returns a new session
+        token. The token can be found in the `data.Id` field of the response
+        object.
       externalDocs:
         description: More information
-        url: "http://firstgen-docs.giantswarm.io/reference/api/v1/#password-authentication"
+        url: "http://firstgen-docs.giantswarm.io/reference/api/v1\
+          /#password-authentication"
       parameters:
         - $ref: '#/parameters/XRequestIDHeader'
         - $ref: '#/parameters/XGiantSwarmActivityHeader'
@@ -62,7 +68,9 @@ paths:
         - text/plain
       responses:
         "200":
-          description: Success. A `response_code=10007` indicates that the token has been deleted.
+          description: |
+            Success. A `response_code=10007` indicates that the token has been
+            deleted.
           schema:
             $ref: '#/definitions/GenericResponseModel'
         "401":
@@ -77,7 +85,8 @@ paths:
     get:
       operationId: getUserOrganizations
       summary: Get organizations for user
-      description: Returns a list of organizations of which the current user is a member
+      description: |
+        Returns a list of organizations of which the current user is a member
       parameters:
         - $ref: '#/parameters/RequiredAuthorizationHeader'
         - $ref: '#/parameters/XRequestIDHeader'
@@ -171,16 +180,33 @@ paths:
     post:
       operationId: addCluster
       summary: Create cluster
-      description: |
-        This operation is used to create a new Kubernetes cluster for an organization. The desired configuration can be specified using the __cluster definition format__ (see [external documentation](https://github.com/giantswarm/api-spec/blob/master/details/CLUSTER_DEFINITION.md) for details).
+      description: >-
+        This operation is used to create a new Kubernetes cluster for an
+        organization. The desired configuration can be specified using the
+        __cluster definition format__ (see
+        [external documentation](https://github.com/giantswarm/api-spec/blob/
+        master/details/CLUSTER_DEFINITION.md) for details).
 
-        The cluster definition format allows to set a number of optional configuration details, like memory size and number of CPU cores. However, one attribute is __mandatory__ upon creation: The `owner` attribute must carry the name of the organization the cluster will belong to. Note that the acting user must be a member of that organization in order to create a cluster.
+        The cluster definition format allows to set a number of optional
+        configuration details, like memory size and number of CPU cores.
+        However, one attribute is __mandatory__ upon creation: The `owner`
+        attribute must carry the name of the organization the cluster will
+        belong to. Note that the acting user must be a member of that
+        organization in order to create a cluster.
 
-        It is *recommended* to also specify the `name` attribute to give the cluster a friendly name, like e. g. "Development Cluster".
+        It is *recommended* to also specify the `name` attribute to give the
+        cluster a friendly name, like e. g. "Development Cluster".
 
-        Additional definition attributes can be used. Where attributes are ommitted, default configuration values will be applied. For example, if no `kubernetes_version` is specified, the latest version tested and provided by Giant Swarm is used.
+        Additional definition attributes can be used. Where attributes are
+        ommitted, default configuration values will be applied. For example, if
+        no `kubernetes_version` is specified, the latest version tested and
+        provided by Giant Swarm is used.
 
-        The `workers` attribute, if present, must contain an array of node definition objects. The number of objects given determines the number of workers created. For example, requesting three worker nodes with default configuration can be achieved by submitting an array of three empty objects:
+        The `workers` attribute, if present, must contain an array of node
+        definition objects. The number of objects given determines the number
+        of workers created. For example, requesting three worker nodes with
+        default configuration can be achieved by submitting an array of three
+        empty objects:
 
         ```"workers": [{}, {}, {}]```
       parameters:
@@ -200,7 +226,9 @@ paths:
           headers:
             Location:
               type: string
-              description: URI to obtain details on the new cluster using the [getCluster](#operation/getCluster) operation
+              description: |
+                URI to obtain details on the new cluster using the
+                [getCluster](#operation/getCluster) operation
           schema:
             $ref: '#/definitions/V4GenericResponse'
           examples:
@@ -246,9 +274,13 @@ paths:
       description: |
         This operation allows to delete a cluster.
 
-        __Caution:__ Deleting a cluster causes the termination of all workloads running on the cluster. Data stored on the worker nodes will be lost. There is no way to undo this operation.
+        __Caution:__ Deleting a cluster causes the termination of all workloads
+        running on the cluster. Data stored on the worker nodes will be lost.
+        There is no way to undo this operation.
 
-        The response is sent as soon as the request is validated. At that point, workloads might still be running on the cluster and may be accessible for a little wile, until the cluster is actually deleted.
+        The response is sent as soon as the request is validated. At that point,
+        workloads might still be running on the cluster and may be accessible
+        for a little wile, until the cluster is actually deleted.
       responses:
         "202":
           description: Deleting cluster
@@ -517,7 +549,9 @@ parameters:
     in: header
     type: string
     required: true
-    description: Header to pass an authorization token. The value has to be in the form `giantswarm <token>`.
+    description: |
+      Header to pass an authorization token. The value has to be in the form
+      `giantswarm <token>`.
   RequiredClusterIdPathParameter:
     name: cluster_id
     in: path
@@ -529,7 +563,9 @@ parameters:
     in: header
     type: string
     required: false
-    description: A randomly generated key that can be used to track a request throughout services of Giant Swarm
+    description: |
+      A randomly generated key that can be used to track a request throughout
+      services of Giant Swarm
   XGiantSwarmActivityHeader:
     name: X-Giant-Swarm-Activity
     in: header
@@ -541,4 +577,6 @@ parameters:
     in: header
     type: string
     required: false
-    description: If activity has been issued by a CLI, this header can contain the command line
+    description: |
+      If activity has been issued by a CLI, this header can contain the
+      command line
