@@ -10,10 +10,12 @@
 
 package gsclientgen
 
-type LoginResponseModel struct {
-	Data LoginResponseModelData `json:"data,omitempty"`
+type V4NodeDefinition struct {
+	Memory V4NodeDefinitionMemory `json:"memory,omitempty"`
 
-	StatusCode int32 `json:"status_code"`
+	Storage V4NodeDefinitionStorage `json:"storage,omitempty"`
 
-	StatusText string `json:"status_text"`
+	Cpu V4NodeDefinitionCpu `json:"cpu,omitempty"`
+
+	Labels interface{} `json:"labels,omitempty"`
 }

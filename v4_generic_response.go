@@ -10,8 +10,8 @@
 
 package gsclientgen
 
-type V4NodeDefinitionModelMemory struct {
+type V4GenericResponse struct {
+	Code string `json:"code"`
 
-	// RAM size in GB
-	SizeGb string `json:"size_gb,omitempty"`
+	Message string `json:"message"`
 }

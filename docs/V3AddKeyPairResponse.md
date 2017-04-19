@@ -1,4 +1,4 @@
-# AddKeyPairResponseModelData
+# V3AddKeyPairResponse
 
 ## Properties
 Name | Type | Description | Notes

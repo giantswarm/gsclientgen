@@ -10,8 +10,8 @@
 
 package gsclientgen
 
-type V4NodeDefinitionModelCpu struct {
+type V4NodeDefinitionStorage struct {
 
-	// Number of CPU cores
-	Cores int32 `json:"cores,omitempty"`
+	// Node storage size in GB
+	SizeGb int32 `json:"size_gb,omitempty"`
 }
