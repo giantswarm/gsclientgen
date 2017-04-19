@@ -120,9 +120,9 @@ func (a DefaultApi) AddCluster(authorization string, body V4AddClusterRequest, x
  * @param xRequestID A randomly generated key that can be used to track a request throughout services of Giant Swarm
  * @param xGiantSwarmActivity Name of an activity to track, like \&quot;list-clusters\&quot;
  * @param xGiantSwarmCmdLine If activity has been issued by a CLI, this header can contain the command line
- * @return *V3AddKeyPairResponse
+ * @return *V4AddKeyPairResponse
  */
-func (a DefaultApi) AddKeyPair(authorization string, clusterId string, body AddKeyPairBody, xRequestID string, xGiantSwarmActivity string, xGiantSwarmCmdLine string) (*V3AddKeyPairResponse, *APIResponse, error) {
+func (a DefaultApi) AddKeyPair(authorization string, clusterId string, body AddKeyPairBody, xRequestID string, xGiantSwarmActivity string, xGiantSwarmCmdLine string) (*V4AddKeyPairResponse, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Post")
 	// create path and map variables
@@ -168,7 +168,7 @@ func (a DefaultApi) AddKeyPair(authorization string, clusterId string, body AddK
 	localVarHeaderParams["X-Giant-Swarm-CmdLine"] = a.Configuration.APIClient.ParameterToString(xGiantSwarmCmdLine, "")
 	// body params
 	localVarPostBody = &body
-	var successPayload = new(V3AddKeyPairResponse)
+	var successPayload = new(V4AddKeyPairResponse)
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
 	var localVarURL, _ = url.Parse(localVarPath)

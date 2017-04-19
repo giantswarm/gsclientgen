@@ -49,7 +49,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **AddKeyPair**
-> V3AddKeyPairResponse AddKeyPair($authorization, $clusterId, $body, $xRequestID, $xGiantSwarmActivity, $xGiantSwarmCmdLine)
+> V4AddKeyPairResponse AddKeyPair($authorization, $clusterId, $body, $xRequestID, $xGiantSwarmActivity, $xGiantSwarmCmdLine)
 
 Add key-pair for cluster
 
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**V3AddKeyPairResponse**](V3AddKeyPairResponse.md)
+[**V4AddKeyPairResponse**](V4AddKeyPairResponse.md)
 
 ### Authorization
 

@@ -161,7 +161,7 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: '#/definitions/V3AddKeyPairResponse'
+            $ref: '#/definitions/V4AddKeyPairResponse'
         default:
           description: Unknown error
           schema:
@@ -372,7 +372,7 @@ definitions:
         type: integer
         format: int32
 
-  V3AddKeyPairResponse:
+  V4AddKeyPairResponse:
     type: object
     required: ["id"]
     properties:
