@@ -326,6 +326,7 @@ definitions:
         type: integer
       status_text:
         type: string
+
   UserOrganizationsResponseModel:
     type: object
     required: ["data", "status_code", "status_text"]
@@ -421,21 +422,12 @@ definitions:
         type: string
       client_certificate_data:
         type: string
+
   V4KeyPairsResponse:
-    type: object
-    required: ["data", "status_code", "status_text"]
-    properties:
-      data:
-        type: object
-        properties:
-          KeyPairs:
-            type: array
-            items:
-              $ref: '#/definitions/KeyPairModel'
-      status_code:
-        type: integer
-      status_text:
-        type: string
+    type: array
+    items:
+      $ref: '#/definitions/KeyPairModel'
+
   OrganizationClustersResponseModel:
     type: object
     required: ["data", "status_code", "status_text"]
