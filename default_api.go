@@ -339,9 +339,9 @@ func (a DefaultApi) GetCluster(authorization string, clusterId string, xRequestI
  * @param xRequestID A randomly generated key that can be used to track a request throughout services of Giant Swarm
  * @param xGiantSwarmActivity Name of an activity to track, like \&quot;list-clusters\&quot;
  * @param xGiantSwarmCmdLine If activity has been issued by a CLI, this header can contain the command line
- * @return *V4KeyPairsResponse
+ * @return []KeyPairModel
  */
-func (a DefaultApi) GetKeyPairs(authorization string, clusterId string, xRequestID string, xGiantSwarmActivity string, xGiantSwarmCmdLine string) (*V4KeyPairsResponse, *APIResponse, error) {
+func (a DefaultApi) GetKeyPairs(authorization string, clusterId string, xRequestID string, xGiantSwarmActivity string, xGiantSwarmCmdLine string) ([]KeyPairModel, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Get")
 	// create path and map variables
@@ -385,7 +385,7 @@ func (a DefaultApi) GetKeyPairs(authorization string, clusterId string, xRequest
 	localVarHeaderParams["X-Giant-Swarm-Activity"] = a.Configuration.APIClient.ParameterToString(xGiantSwarmActivity, "")
 	// header params "X-Giant-Swarm-CmdLine"
 	localVarHeaderParams["X-Giant-Swarm-CmdLine"] = a.Configuration.APIClient.ParameterToString(xGiantSwarmCmdLine, "")
-	var successPayload = new(V4KeyPairsResponse)
+	var successPayload = new([]KeyPairModel)
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
 	var localVarURL, _ = url.Parse(localVarPath)
@@ -397,10 +397,10 @@ func (a DefaultApi) GetKeyPairs(authorization string, clusterId string, xRequest
 	}
 
 	if err != nil {
-		return successPayload, localVarAPIResponse, err
+		return *successPayload, localVarAPIResponse, err
 	}
 	err = json.Unmarshal(localVarHttpResponse.Body(), &successPayload)
-	return successPayload, localVarAPIResponse, err
+	return *successPayload, localVarAPIResponse, err
 }
 
 /**

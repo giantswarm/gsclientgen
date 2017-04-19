@@ -141,7 +141,9 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: '#/definitions/V4KeyPairsResponse'
+            type: array
+            items:
+              $ref: '#/definitions/KeyPairModel'
         default:
           description: Unknown error
           schema:
@@ -422,11 +424,6 @@ definitions:
         type: string
       client_certificate_data:
         type: string
-
-  V4KeyPairsResponse:
-    type: array
-    items:
-      $ref: '#/definitions/KeyPairModel'
 
   OrganizationClustersResponseModel:
     type: object
