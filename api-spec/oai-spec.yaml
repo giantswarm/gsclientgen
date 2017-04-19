@@ -123,7 +123,8 @@ paths:
           description: Unknown error
           schema:
             $ref: '#/definitions/GenericResponseModel'
-  /v3/clusters/{cluster_id}/key-pairs/:
+
+  /v4/clusters/{cluster_id}/key-pairs/:
     get:
       operationId: getKeyPairs
       summary: Get key-pairs for cluster
@@ -140,13 +141,11 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: '#/definitions/KeyPairsResponseModel'
+            $ref: '#/definitions/V4KeyPairsResponse'
         default:
           description: Unknown error
           schema:
             $ref: '#/definitions/GenericResponseModel'
-
-  /v4/clusters/{cluster_id}/key-pairs/:
     post:
       operationId: addKeyPair
       summary: Add key-pair for cluster
@@ -165,7 +164,7 @@ paths:
           required: true
           description: Description and expiry time for the new key-pair
           schema:
-            $ref: '#/definitions/AddKeyPairBody'
+            $ref: '#/definitions/V4AddKeyPairBody'
       responses:
         "200":
           description: Success
@@ -394,7 +393,7 @@ definitions:
       client_certificate_data:
         type: string
 
-  AddKeyPairBody:
+  V4AddKeyPairBody:
     type: object
     required: ["description"]
     properties:
@@ -422,7 +421,7 @@ definitions:
         type: string
       client_certificate_data:
         type: string
-  KeyPairsResponseModel:
+  V4KeyPairsResponse:
     type: object
     required: ["data", "status_code", "status_text"]
     properties:

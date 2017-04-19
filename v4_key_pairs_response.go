@@ -10,6 +10,10 @@
 
 package gsclientgen
 
-type KeyPairsResponseModelData struct {
-	KeyPairs []KeyPairModel `json:"KeyPairs,omitempty"`
+type V4KeyPairsResponse struct {
+	Data V4KeyPairsResponseData `json:"data,omitempty"`
+
+	StatusCode int32 `json:"status_code"`
+
+	StatusText string `json:"status_text"`
 }

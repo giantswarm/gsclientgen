@@ -10,10 +10,8 @@
 
 package gsclientgen
 
-type KeyPairsResponseModel struct {
-	Data KeyPairsResponseModelData `json:"data,omitempty"`
+type V4AddKeyPairBody struct {
+	Description string `json:"description"`
 
-	StatusCode int32 `json:"status_code"`
-
-	StatusText string `json:"status_text"`
+	TtlHours int32 `json:"ttl_hours,omitempty"`
 }
