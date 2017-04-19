@@ -10,8 +10,10 @@
 
 package gsclientgen
 
-type V4NodeDefinitionModelStorage struct {
+type V3AddKeyPairResponse struct {
+	StatusCode int32 `json:"status_code"`
 
-	// Node storage size in GB
-	SizeGb int32 `json:"size_gb,omitempty"`
+	StatusText string `json:"status_text"`
+
+	Data V3AddKeyPairResponseData `json:"data,omitempty"`
 }
