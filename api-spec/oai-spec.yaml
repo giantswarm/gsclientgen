@@ -81,28 +81,6 @@ paths:
           description: Unknown error
           schema:
             $ref: '#/definitions/GenericResponseModel'
-  /v3/orgs/{organization_name}/clusters/:
-    get:
-      operationId: getOrganizationClusters
-      summary: Get clusters for organization
-      parameters:
-        - $ref: '#/parameters/RequiredAuthorizationHeader'
-        - $ref: '#/parameters/XRequestIDHeader'
-        - $ref: '#/parameters/XGiantSwarmActivityHeader'
-        - $ref: '#/parameters/XGiantSwarmCmdLineHeader'
-        - name: organization_name
-          in: path
-          required: true
-          type: string
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: '#/definitions/OrganizationClustersResponseModel'
-        default:
-          description: Unknown error
-          schema:
-            $ref: '#/definitions/GenericResponseModel'
 
   /v4/organizations/:
     get:
@@ -394,16 +372,6 @@ definitions:
         type: integer
       status_text:
         type: string
-  ClusterModel:
-    type: object
-    required: ["id"]
-    properties:
-      id:
-        type: string
-      name:
-        type: string
-      create_date:
-        type: string
 
   V4ClusterDetailsModel:
     type: object
@@ -476,22 +444,6 @@ definitions:
       client_key_data:
         type: string
       client_certificate_data:
-        type: string
-
-  OrganizationClustersResponseModel:
-    type: object
-    required: ["data", "status_code", "status_text"]
-    properties:
-      data:
-        type: object
-        properties:
-          clusters:
-            type: array
-            items:
-              $ref: '#/definitions/ClusterModel'
-      status_code:
-        type: integer
-      status_text:
         type: string
 
   LoginBodyModel:
