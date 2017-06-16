@@ -182,6 +182,11 @@ paths:
 
         The result array items are sparse representations of the cluster
         objects.
+      parameters:
+        - $ref: '#/parameters/RequiredAuthorizationHeader'
+        - $ref: '#/parameters/XRequestIDHeader'
+        - $ref: '#/parameters/XGiantSwarmActivityHeader'
+        - $ref: '#/parameters/XGiantSwarmCmdLineHeader'
       responses:
         "200":
           description: Success
