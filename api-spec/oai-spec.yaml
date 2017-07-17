@@ -299,6 +299,24 @@ paths:
           description: Unknown error
           schema:
             $ref: '#/definitions/V4GenericResponse'
+    patch:
+      operationId: modifyCluster
+      summary: Modify cluster
+      parameters:
+        - $ref: '#/parameters/RequiredAuthorizationHeader'
+        - $ref: '#/parameters/XRequestIDHeader'
+        - $ref: '#/parameters/XGiantSwarmActivityHeader'
+        - $ref: '#/parameters/XGiantSwarmCmdLineHeader'
+        - $ref: '#/parameters/RequiredClusterIdPathParameter'
+      responses:
+        "200":
+          description: Cluster modified
+          schema:
+            $ref: '#/definitions/V4ClusterDetailsModel'
+        default:
+          description: error
+          schema:
+            $ref: '#/definitions/V4GenericResponse'
     delete:
       operationId: deleteCluster
       parameters:
