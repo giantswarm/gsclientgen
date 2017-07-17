@@ -308,6 +308,12 @@ paths:
         - $ref: '#/parameters/XGiantSwarmActivityHeader'
         - $ref: '#/parameters/XGiantSwarmCmdLineHeader'
         - $ref: '#/parameters/RequiredClusterIdPathParameter'
+        - name: body
+          in: body
+          required: true
+          description: Modified cluster definition (JSON merge-patch)
+          schema:
+            $ref: '#/definitions/V4ModifyClusterRequest'
       responses:
         "200":
           description: Cluster modified
@@ -497,6 +503,19 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/V4NodeDefinition'
+
+  # Request to modify a cluster
+  V4ModifyClusterRequest:
+    type: object
+    properties:
+      workers:
+        type: array
+        items:
+          $ref: '#/definitions/V4NodeDefinition'
+      owner:
+        type: string
+      name:
+        type: string
 
   # Definition of a cluster node
   V4NodeDefinition:
