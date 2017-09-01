@@ -20,7 +20,7 @@
  * limitations under the License.
  */
 
-package swagger
+package gsclientgen
 
 type V4AddKeyPairBody struct {
 

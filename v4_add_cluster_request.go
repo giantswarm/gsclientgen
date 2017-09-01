@@ -20,7 +20,7 @@
  * limitations under the License.
  */
 
-package swagger
+package gsclientgen
 
 // Request model for creating a new cluster
 type V4AddClusterRequest struct {
