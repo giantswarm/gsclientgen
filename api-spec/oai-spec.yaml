@@ -455,6 +455,10 @@ definitions:
       ttl_hours:
         type: integer
         format: int32
+      cn_prefix:
+        type: string
+      certificate_organizations:
+        type: string
 
   V4AddKeyPairResponse:
     type: object
