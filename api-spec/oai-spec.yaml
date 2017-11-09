@@ -445,6 +445,10 @@ definitions:
         type: string
       client_certificate_data:
         type: string
+      common_name:
+        type: string
+      certificate_organizations:
+        type: string
 
   V4AddKeyPairBody:
     type: object
