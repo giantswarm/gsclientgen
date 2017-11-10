@@ -10,8 +10,6 @@
 
 package gsclientgen
 
-type V4GenericResponse struct {
-	Code string `json:"code"`
-
-	Message string `json:"message"`
+type V4NodeDefinitionAws struct {
+	InstanceType string `json:"instance_type,omitempty"`
 }
