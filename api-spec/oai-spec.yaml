@@ -599,6 +599,11 @@ definitions:
         properties:
           instance_type:
             type: string
+      azure:
+        type: object
+        properties:
+          vm_size:
+            type: string
 
   # Definition of a cluster node
   # only for the purpose of fetching cluster details
@@ -610,6 +615,11 @@ definitions:
         type: object
         properties:
           instance_type:
+            type: string
+      azure:
+        type: object
+        properties:
+          vm_size:
             type: string
       memory:
         type: object
