@@ -201,13 +201,15 @@ paths:
                   "id": "g8s3o",
                   "create_date": "2017-06-08T12:31:47.215Z",
                   "name": "Staging Cluster",
-                  "owner": "acme"
+                  "owner": "acme",
+                  "release_version": "3.0.1"
                 },
                 {
                   "id": "3dkr6",
                   "create_date": "2017-05-22T13:58:02.024Z",
                   "name": "Test Cluster",
-                  "owner": "testorg"
+                  "owner": "testorg",
+                  "release_version": "2.8.0"
                 }
               ]
         default:
@@ -684,6 +686,9 @@ definitions:
       owner:
         type: string
         description: Name of the organization owning the cluster
+      release_version:
+        type: string
+        description: The semantic version number of this cluster
 
   V4ReleaseChangelogItem:
     type: object
