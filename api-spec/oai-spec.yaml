@@ -560,9 +560,6 @@ definitions:
       release_version:
         type: string
         description: Release version number
-      kubernetes_version:
-        type: string
-        description: Kubernetes version number
       workers:
         type: array
         items:
