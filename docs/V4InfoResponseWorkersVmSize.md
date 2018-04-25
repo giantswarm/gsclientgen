@@ -1,11 +1,10 @@
-# V4InfoResponseWorkersCpuCores
+# V4InfoResponseWorkersVmSize
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Min** | **float32** |  | [optional] [default to null]
-**Max** | **float32** |  | [optional] [default to null]
-**Default_** | **float32** |  | [optional] [default to null]
+**Options** | **[]string** | List of available instance types | [optional] [default to null]
+**Default_** | **string** | The instance type used in new cluster, if not specified  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
