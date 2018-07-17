@@ -1,5 +1,4 @@
 [![GoDoc](https://godoc.org/github.com/giantswarm/gsclientgen?status.svg)](https://godoc.org/github.com/giantswarm/gsclientgen)
-[![Travis-CI Build Badge](https://api.travis-ci.org/giantswarm/gsclientgen.svg?branch=master)](https://travis-ci.org/giantswarm/gsclientgen)
 [![Go Report Card](https://goreportcard.com/badge/github.com/giantswarm/gsclientgen)](https://goreportcard.com/report/github.com/giantswarm/gsclientgen)
 [![IRC Channel](https://img.shields.io/badge/irc-%23giantswarm-blue.svg)](https://kiwiirc.com/client/irc.freenode.net/#giantswarm)
 
@@ -13,50 +12,37 @@ Documentation can be found in the sub folder `docs`.
 
 ## Usage
 
-In your Go package, import like this:
+Here is a simplistic example of how to use the client for listing clusters:
 
 ```go
-import "github.com/giantswarm/gsclientgen"
-```
+package main
 
-Some usage examples:
+import (
+	"fmt"
 
-```go
-client := gsclientgen.NewDefaultApi()
-myToken := ""
+	"github.com/giantswarm/gsclientgen/client"
+	"github.com/giantswarm/gsclientgen/client/clusters"
 
-// get an auth token (aka "Login")
-requestBody := gsclientgen.LoginBody{Password: base64EncodedPass}
-loginResponse, _, err := client.UserLoginModel("email@example.com", requestBody)
-if err != nil {
-	log.Fatal(err)
-}
-if loginResponse.StatusCode == 10000 {
-	myToken = loginResponse.Data.Id
-	fmt.Printf("Successfully logged in. Token is %s.\n", loginResponse.Data.Id)
-}
+	httptransport "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
+)
 
-// list organizations the user is member of
-authHeader := "giantswarm " + myToken
-orgsResponse, _, err := client.GetUserOrganizations(authHeader)
-if err != nil {
-	log.Fatal(err)
-}
-if orgsResponse.StatusCode == 10000 {
-	var organizations = orgsResponse.Data
-	for _, orgName := orgsResponse.Data {
-		fmt.Println(orgName)
+func main() {
+	// You'll need the correct host name and probably "https" instead of "http"
+	tp := httptransport.New("localhost:8000", "", []string{"http"})
+
+	// You'll need a proper token
+	token := "some-example-token"
+
+	params := clusters.NewGetClustersParams().WithAuthorization("giantswarm " + token)
+	c := client.New(tp, strfmt.Default)
+
+	response, err := c.Clusters.GetClusters(params, nil)
+	if err != nil {
+		fmt.Println(err)
 	}
-}
 
-// log out
-logoutResponse, _, err := client.UserLogout(authHeader)
-if err != nil {
-	log.Fatal(err)
-}
-if logoutResponse.StatusCode == 10007 {
-	myToken = ""
-	fmt.Println("Successfully logged out")
+	fmt.Printf("First cluster ID is '%s'\n", response.Payload[0].ID)
 }
 ```
 
