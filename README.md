@@ -1,14 +1,9 @@
 [![GoDoc](https://godoc.org/github.com/giantswarm/gsclientgen?status.svg)](https://godoc.org/github.com/giantswarm/gsclientgen)
 [![Go Report Card](https://goreportcard.com/badge/github.com/giantswarm/gsclientgen)](https://goreportcard.com/report/github.com/giantswarm/gsclientgen)
-[![IRC Channel](https://img.shields.io/badge/irc-%23giantswarm-blue.svg)](https://kiwiirc.com/client/irc.freenode.net/#giantswarm)
 
-# Giant Swarm Golang Client (generated)
+# Giant Swarm Go Client (generated)
 
-Experimental Go client for the Giant Swarm API, auto-generated based on an OAI/Swagger specification using Swagger Codegen.
-
-Note: This client currently covers only a part of the API. Expect lots of breaking changes within the code. Use at your own risk.
-
-Documentation can be found in the sub folder `docs`.
+Experimental Go/Golang client for the Giant Swarm API, auto-generated based on the [OAI/Swagger specification](https://gothub.com/giantswarm/api-spec) using go-swagger.
 
 ## Usage
 
@@ -48,11 +43,16 @@ func main() {
 
 ## Development
 
-The source API specification can be found in `api-spec/oai-spec.yaml`. Changes here will recflect in changes of the generated code.
-
-To generate client library code after changes in above file, run:
+To pull the latest `api-spec` master and generate documentation and Go code:
 
 ```nohighlight
-make validate
-make generate
+$ make generate
+```
+
+To work on a different branch of the `api-spec`, edit the `BRANCH` variable in the top of `Makefile`.
+
+To double-check the spec's validity do this:
+
+```nohighlight
+$ make validate
 ```
