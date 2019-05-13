@@ -3,13 +3,17 @@ jobs:
   build:
     docker:
       # CircleCI Go images available at: https://hub.docker.com/r/circleci/golang/
-      - image: circleci/golang:1.10-stretch
+      - image: circleci/golang:1.11-stretch
 
     working_directory: /go/src/github.com/giantswarm/gsclientgen
 
     steps:
       - checkout
 
-      - run: go get -u github.com/golang/dep/cmd/dep
+      - run:
+          name: Install dep
+          command: |
+            go get -u github.com/golang/dep/cmd/dep
+            dep version
 
       - run: make build
