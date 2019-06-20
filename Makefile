@@ -8,10 +8,10 @@ BRANCH := master
 generate: clean
 	# pull spec
 	mkdir -p ./api-spec
-	curl -s https://raw.githubusercontent.com/giantswarm/api-spec/$(BRANCH)/spec.yaml > api-spec/spec.yaml
-	curl -s https://raw.githubusercontent.com/giantswarm/api-spec/$(BRANCH)/responses.yaml > api-spec/responses.yaml
-	curl -s https://raw.githubusercontent.com/giantswarm/api-spec/$(BRANCH)/parameters.yaml > api-spec/parameters.yaml
-	curl -s https://raw.githubusercontent.com/giantswarm/api-spec/$(BRANCH)/definitions.yaml > api-spec/definitions.yaml
+	curl -s https://raw.githubusercontent.com/giantswarm/api-spec/$(BRANCH)/spec/spec.yaml > api-spec/spec.yaml
+	curl -s https://raw.githubusercontent.com/giantswarm/api-spec/$(BRANCH)/spec/responses.yaml > api-spec/responses.yaml
+	curl -s https://raw.githubusercontent.com/giantswarm/api-spec/$(BRANCH)/spec/parameters.yaml > api-spec/parameters.yaml
+	curl -s https://raw.githubusercontent.com/giantswarm/api-spec/$(BRANCH)/spec/definitions.yaml > api-spec/definitions.yaml
 	docker run --rm -it \
 	  -v ${PWD}:/go/src/github.com/giantswarm/gsclientgen \
 		-w /go/src/github.com/giantswarm/gsclientgen/api-spec \
