@@ -3,7 +3,7 @@ USERID=$(shell id -u)
 GROUPID=$(shell id -g)
 
 # API Spec branch name
-BRANCH := master
+BRANCH := remove-required-auth-header
 
 generate: clean
 	# pull spec
