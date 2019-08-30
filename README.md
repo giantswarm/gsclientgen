@@ -28,11 +28,12 @@ func main() {
 
 	// You'll need a proper token
 	token := "some-example-token"
+	auth := httptransport.APIKeyAuth("Authorization", "header", "giantswarm " + token))
 
-	params := clusters.NewGetClustersParams().WithAuthorization("giantswarm " + token)
+	params := clusters.NewGetClustersParams()
 	c := client.New(tp, strfmt.Default)
 
-	response, err := c.Clusters.GetClusters(params, nil)
+	response, err := c.Clusters.GetClusters(params, auth)
 	if err != nil {
 		fmt.Println(err)
 	}
