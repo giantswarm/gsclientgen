@@ -40,7 +40,14 @@ func (o *AddKeyPairReader) ReadResponse(response runtime.ClientResponse, consume
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		result := NewAddKeyPairDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -91,6 +98,44 @@ func (o *AddKeyPairUnauthorized) Error() string {
 }
 
 func (o *AddKeyPairUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.V4GenericResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewAddKeyPairDefault creates a AddKeyPairDefault with default headers values
+func NewAddKeyPairDefault(code int) *AddKeyPairDefault {
+	return &AddKeyPairDefault{
+		_statusCode: code,
+	}
+}
+
+/*AddKeyPairDefault handles this case with default header values.
+
+error
+*/
+type AddKeyPairDefault struct {
+	_statusCode int
+
+	Payload *models.V4GenericResponse
+}
+
+// Code gets the status code for the add key pair default response
+func (o *AddKeyPairDefault) Code() int {
+	return o._statusCode
+}
+
+func (o *AddKeyPairDefault) Error() string {
+	return fmt.Sprintf("[POST /v4/clusters/{cluster_id}/key-pairs/][%d] addKeyPair default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *AddKeyPairDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V4GenericResponse)
 

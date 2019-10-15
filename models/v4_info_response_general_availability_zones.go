@@ -24,6 +24,9 @@ type V4InfoResponseGeneralAvailabilityZones struct {
 	// Number of availability zones in the region of this installation.
 	// Required: true
 	Max *int64 `json:"max"`
+
+	// The availability zones available in the installation's region for use with tenant clusters.
+	Zones []string `json:"zones"`
 }
 
 // Validate validates this v4 info response general availability zones

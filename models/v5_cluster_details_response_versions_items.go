@@ -15,7 +15,7 @@ import (
 // swagger:model v5ClusterDetailsResponseVersionsItems
 type V5ClusterDetailsResponseVersionsItems struct {
 
-	// Date and time when the cluster got created with or upgrated to this version
+	// Date and time when the cluster got created with or upgraded to this version
 	LastTransitionTime string `json:"last_transition_time,omitempty"`
 
 	// Semantic version number

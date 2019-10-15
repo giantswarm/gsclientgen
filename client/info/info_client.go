@@ -44,6 +44,9 @@ prevent creating clusters with more worker nodes than possible.
     "availability_zones": {
       "max": 3,
       "default": 1,
+      "zones": [
+        "eu-central-1a", "eu-central-1b", "eu-central-1c"
+      ]
     }
   },
   "stats": {
