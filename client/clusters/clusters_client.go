@@ -77,23 +77,13 @@ func (a *Client) AddCluster(params *AddClusterParams, authInfo runtime.ClientAut
 /*
 AddClusterV5 creates cluster v5
 
-Allows to create most recent clusters on AWS installations.
+Allows to create clusters supporting node pools on AWS installations.
 
-### Node pools
-
-In the Giant Swarm API v5, worker nodes are grouped into pools of worker
-nodes where all nodes share the same configuration.
-
-When creating a cluster without submitting the `nodepools` attribute,
-or with its value being an empty array, one node pool with default
-configuration will be created.
-
-Node pools can be created, deleted and modified during the entire
-lifetime of a cluster.
+The cluster will not have any worker nodes until you create a first node pool.
 
 See
 [node pools](#tag/nodepools) and
-[Create node pool](#operation/addNodePool) for details.
+[create node pool](#operation/addNodePool) for details.
 
 */
 func (a *Client) AddClusterV5(params *AddClusterV5Params, authInfo runtime.ClientAuthInfoWriter) (*AddClusterV5Created, error) {
@@ -238,7 +228,7 @@ func (a *Client) GetClusterStatus(params *GetClusterStatusParams, authInfo runti
 /*
 GetClusterV5 gets cluster details v5
 
-Allows to retrieve cluster details on AWS installations.
+Allows to retrieve details of a cluster supporting node pools on AWS installations.
 
 */
 func (a *Client) GetClusterV5(params *GetClusterV5Params, authInfo runtime.ClientAuthInfoWriter) (*GetClusterV5OK, error) {
@@ -384,7 +374,12 @@ func (a *Client) ModifyCluster(params *ModifyClusterParams, authInfo runtime.Cli
 /*
 ModifyClusterV5 modifies cluster v5
 
-Allows to change cluster properties on AWS installations.
+Allows to change properties of a cluster supporting node pools on AWS installations.
+
+The following attributes allow to be modified:
+
+- `name`
+- `release_version`
 
 */
 func (a *Client) ModifyClusterV5(params *ModifyClusterV5Params, authInfo runtime.ClientAuthInfoWriter) (*ModifyClusterV5OK, error) {
