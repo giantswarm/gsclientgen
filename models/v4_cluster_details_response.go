@@ -12,6 +12,7 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // V4ClusterDetailsResponse Response model showing details of a cluster
@@ -31,6 +32,10 @@ type V4ClusterDetailsResponse struct {
 	// Azure). See [Set credentials](#operation/addCredentials) for details.
 	//
 	CredentialID string `json:"credential_id,omitempty"`
+
+	// Date/time when cluster has been deleted
+	// Format: date
+	DeleteDate strfmt.Date `json:"delete_date,omitempty"`
 
 	// Unique cluster identifier
 	ID string `json:"id,omitempty"`
@@ -60,6 +65,10 @@ type V4ClusterDetailsResponse struct {
 func (m *V4ClusterDetailsResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateDeleteDate(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateKvm(formats); err != nil {
 		res = append(res, err)
 	}
@@ -75,6 +84,19 @@ func (m *V4ClusterDetailsResponse) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V4ClusterDetailsResponse) validateDeleteDate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.DeleteDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("delete_date", "body", "date", m.DeleteDate.String(), formats); err != nil {
+		return err
+	}
+
 	return nil
 }
 

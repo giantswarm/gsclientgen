@@ -8,7 +8,9 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // V4ClusterListItem v4 cluster list item
@@ -17,6 +19,10 @@ type V4ClusterListItem struct {
 
 	// Date/time of cluster creation
 	CreateDate string `json:"create_date,omitempty"`
+
+	// Date/time when cluster has been deleted
+	// Format: date
+	DeleteDate strfmt.Date `json:"delete_date,omitempty"`
 
 	// Unique cluster identifier
 	ID string `json:"id,omitempty"`
@@ -36,6 +42,28 @@ type V4ClusterListItem struct {
 
 // Validate validates this v4 cluster list item
 func (m *V4ClusterListItem) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateDeleteDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V4ClusterListItem) validateDeleteDate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.DeleteDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("delete_date", "body", "date", m.DeleteDate.String(), formats); err != nil {
+		return err
+	}
+
 	return nil
 }
 

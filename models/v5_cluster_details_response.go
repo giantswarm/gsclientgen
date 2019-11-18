@@ -12,6 +12,7 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // V5ClusterDetailsResponse v5 cluster details response
@@ -31,6 +32,10 @@ type V5ClusterDetailsResponse struct {
 	// [Set credentials](#operation/addCredentials) for details.
 	//
 	CredentialID string `json:"credential_id,omitempty"`
+
+	// Date/time when cluster has been deleted
+	// Format: date
+	DeleteDate strfmt.Date `json:"delete_date,omitempty"`
 
 	// Unique cluster identifier
 	ID string `json:"id,omitempty"`
@@ -59,6 +64,10 @@ func (m *V5ClusterDetailsResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateConditions(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDeleteDate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -96,6 +105,19 @@ func (m *V5ClusterDetailsResponse) validateConditions(formats strfmt.Registry) e
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *V5ClusterDetailsResponse) validateDeleteDate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.DeleteDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("delete_date", "body", "date", m.DeleteDate.String(), formats); err != nil {
+		return err
 	}
 
 	return nil
