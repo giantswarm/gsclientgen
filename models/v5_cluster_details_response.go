@@ -35,7 +35,7 @@ type V5ClusterDetailsResponse struct {
 
 	// Date/time when cluster has been deleted
 	// Format: date-time
-	DeleteDate strfmt.DateTime `json:"delete_date,omitempty"`
+	DeleteDate *strfmt.DateTime `json:"delete_date,omitempty"`
 
 	// Unique cluster identifier
 	ID string `json:"id,omitempty"`
