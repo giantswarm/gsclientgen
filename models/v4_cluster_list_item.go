@@ -21,8 +21,8 @@ type V4ClusterListItem struct {
 	CreateDate string `json:"create_date,omitempty"`
 
 	// Date/time when cluster has been deleted
-	// Format: date
-	DeleteDate strfmt.Date `json:"delete_date,omitempty"`
+	// Format: date-time
+	DeleteDate strfmt.DateTime `json:"delete_date,omitempty"`
 
 	// Unique cluster identifier
 	ID string `json:"id,omitempty"`
@@ -60,7 +60,7 @@ func (m *V4ClusterListItem) validateDeleteDate(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.FormatOf("delete_date", "body", "date", m.DeleteDate.String(), formats); err != nil {
+	if err := validate.FormatOf("delete_date", "body", "date-time", m.DeleteDate.String(), formats); err != nil {
 		return err
 	}
 
