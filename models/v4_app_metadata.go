@@ -15,6 +15,9 @@ import (
 // swagger:model v4AppMetadata
 type V4AppMetadata struct {
 
+	// The labels that are set on this App
+	Labels interface{} `json:"labels,omitempty"`
+
 	// The identifier you set when creating this app
 	Name string `json:"name,omitempty"`
 }

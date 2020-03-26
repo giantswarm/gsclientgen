@@ -16,6 +16,7 @@ import (
 	"github.com/giantswarm/gsclientgen/client/apps"
 	"github.com/giantswarm/gsclientgen/client/auth_tokens"
 	"github.com/giantswarm/gsclientgen/client/clusters"
+	"github.com/giantswarm/gsclientgen/client/exception_notifications"
 	"github.com/giantswarm/gsclientgen/client/info"
 	"github.com/giantswarm/gsclientgen/client/key_pairs"
 	"github.com/giantswarm/gsclientgen/client/node_pools"
@@ -76,6 +77,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Gsclientge
 	cli.AuthTokens = auth_tokens.New(transport, formats)
 
 	cli.Clusters = clusters.New(transport, formats)
+
+	cli.ExceptionNotifications = exception_notifications.New(transport, formats)
 
 	cli.Info = info.New(transport, formats)
 
@@ -143,6 +146,8 @@ type Gsclientgen struct {
 
 	Clusters *clusters.Client
 
+	ExceptionNotifications *exception_notifications.Client
+
 	Info *info.Client
 
 	KeyPairs *key_pairs.Client
@@ -171,6 +176,8 @@ func (c *Gsclientgen) SetTransport(transport runtime.ClientTransport) {
 	c.AuthTokens.SetTransport(transport)
 
 	c.Clusters.SetTransport(transport)
+
+	c.ExceptionNotifications.SetTransport(transport)
 
 	c.Info.SetTransport(transport)
 

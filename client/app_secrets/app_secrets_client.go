@@ -25,7 +25,7 @@ type Client struct {
 }
 
 /*
-CreateClusterAppSecret creates secret
+CreateClusterAppSecretV4 creates secret v4
 
 This operation allows you to create a Secret for a specific app. The app does
 not have to exist before hand.
@@ -38,6 +38,7 @@ then this request will fail. You will in that case most likely want to
 update the Secret using the `PATCH /v4/clusters/{cluster_id}/apps/{app_name}/secret/`
 endpoint.
 
+For apps on v5 clusters, please use the v5 version of this endpoint.
 
 ### Example POST request
 ```json
@@ -47,21 +48,21 @@ endpoint.
 ```
 
 */
-func (a *Client) CreateClusterAppSecret(params *CreateClusterAppSecretParams, authInfo runtime.ClientAuthInfoWriter) (*CreateClusterAppSecretOK, error) {
+func (a *Client) CreateClusterAppSecretV4(params *CreateClusterAppSecretV4Params, authInfo runtime.ClientAuthInfoWriter) (*CreateClusterAppSecretV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewCreateClusterAppSecretParams()
+		params = NewCreateClusterAppSecretV4Params()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "createClusterAppSecret",
+		ID:                 "createClusterAppSecretV4",
 		Method:             "PUT",
 		PathPattern:        "/v4/clusters/{cluster_id}/apps/{app_name}/secret/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &CreateClusterAppSecretReader{formats: a.formats},
+		Reader:             &CreateClusterAppSecretV4Reader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -69,12 +70,97 @@ func (a *Client) CreateClusterAppSecret(params *CreateClusterAppSecretParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateClusterAppSecretOK), nil
+	return result.(*CreateClusterAppSecretV4OK), nil
 
 }
 
 /*
-DeleteClusterAppSecret deletes a secret
+CreateClusterAppSecretV5 creates secret v5
+
+This operation allows you to create a Secret for a specific app. The app does
+not have to exist before hand.
+
+If the app does exist, this endpoint will ensure that the App CR gets it's
+`spec.user_config.secret` field set correctly.
+
+However, if the app exists and the `spec.user_config.secret` is already set to something,
+then this request will fail. You will in that case most likely want to
+update the Secret using the `PATCH /v5/clusters/{cluster_id}/apps/{app_name}/secret/`
+endpoint.
+
+### Example POST request
+```json
+  {
+    "secret": "value"
+  }
+```
+
+*/
+func (a *Client) CreateClusterAppSecretV5(params *CreateClusterAppSecretV5Params, authInfo runtime.ClientAuthInfoWriter) (*CreateClusterAppSecretV5OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateClusterAppSecretV5Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createClusterAppSecretV5",
+		Method:             "PUT",
+		PathPattern:        "/v5/clusters/{cluster_id}/apps/{app_name}/secret/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateClusterAppSecretV5Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CreateClusterAppSecretV5OK), nil
+
+}
+
+/*
+DeleteClusterAppSecretV4 deletes a secret v4
+
+This operation allows a user to delete an app's Secret if it has been named according to the convention of {app-name}-user-secrets and
+stored in the cluster ID namespace.
+
+Calling this endpoint will delete the Secret, and also remove the reference to the Secret in the (spec.user_config.secret field) from the app.
+
+For apps on v5 clusters, please use the v5 version of this endpoint.
+
+*/
+func (a *Client) DeleteClusterAppSecretV4(params *DeleteClusterAppSecretV4Params, authInfo runtime.ClientAuthInfoWriter) (*DeleteClusterAppSecretV4OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteClusterAppSecretV4Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteClusterAppSecretV4",
+		Method:             "DELETE",
+		PathPattern:        "/v4/clusters/{cluster_id}/apps/{app_name}/secret/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteClusterAppSecretV4Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteClusterAppSecretV4OK), nil
+
+}
+
+/*
+DeleteClusterAppSecretV5 deletes a secret v5
 
 This operation allows a user to delete an app's Secret if it has been named according to the convention of {app-name}-user-secrets and
 stored in the cluster ID namespace.
@@ -82,21 +168,21 @@ stored in the cluster ID namespace.
 Calling this endpoint will delete the Secret, and also remove the reference to the Secret in the (spec.user_config.secret field) from the app.
 
 */
-func (a *Client) DeleteClusterAppSecret(params *DeleteClusterAppSecretParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteClusterAppSecretOK, error) {
+func (a *Client) DeleteClusterAppSecretV5(params *DeleteClusterAppSecretV5Params, authInfo runtime.ClientAuthInfoWriter) (*DeleteClusterAppSecretV5OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewDeleteClusterAppSecretParams()
+		params = NewDeleteClusterAppSecretV5Params()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "deleteClusterAppSecret",
+		ID:                 "deleteClusterAppSecretV5",
 		Method:             "DELETE",
-		PathPattern:        "/v4/clusters/{cluster_id}/apps/{app_name}/secret/",
+		PathPattern:        "/v5/clusters/{cluster_id}/apps/{app_name}/secret/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &DeleteClusterAppSecretReader{formats: a.formats},
+		Reader:             &DeleteClusterAppSecretV5Reader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -104,32 +190,34 @@ func (a *Client) DeleteClusterAppSecret(params *DeleteClusterAppSecretParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteClusterAppSecretOK), nil
+	return result.(*DeleteClusterAppSecretV5OK), nil
 
 }
 
 /*
-GetClusterAppSecret gets secret
+GetClusterAppSecretV4 gets secret v4
 
 This operation allows you to fetch the Secret associated
 with an app.
 
+For apps on v5 clusters, please use the v5 version of this endpoint.
+
 */
-func (a *Client) GetClusterAppSecret(params *GetClusterAppSecretParams, authInfo runtime.ClientAuthInfoWriter) (*GetClusterAppSecretOK, error) {
+func (a *Client) GetClusterAppSecretV4(params *GetClusterAppSecretV4Params, authInfo runtime.ClientAuthInfoWriter) (*GetClusterAppSecretV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetClusterAppSecretParams()
+		params = NewGetClusterAppSecretV4Params()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getClusterAppSecret",
+		ID:                 "getClusterAppSecretV4",
 		Method:             "GET",
 		PathPattern:        "/v4/clusters/{cluster_id}/apps/{app_name}/secret/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &GetClusterAppSecretReader{formats: a.formats},
+		Reader:             &GetClusterAppSecretV4Reader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -137,12 +225,102 @@ func (a *Client) GetClusterAppSecret(params *GetClusterAppSecretParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetClusterAppSecretOK), nil
+	return result.(*GetClusterAppSecretV4OK), nil
 
 }
 
 /*
-ModifyClusterAppSecret modifies secret
+GetClusterAppSecretV5 gets secret v5
+
+This operation allows you to fetch the Secret associated
+with an app.
+
+*/
+func (a *Client) GetClusterAppSecretV5(params *GetClusterAppSecretV5Params, authInfo runtime.ClientAuthInfoWriter) (*GetClusterAppSecretV5OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetClusterAppSecretV5Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getClusterAppSecretV5",
+		Method:             "GET",
+		PathPattern:        "/v5/clusters/{cluster_id}/apps/{app_name}/secret/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetClusterAppSecretV5Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetClusterAppSecretV5OK), nil
+
+}
+
+/*
+ModifyClusterAppSecretV4 modifies secret v4
+
+This operation allows you to modify the Secret for a specific app.
+It's only possible to modify Secrets that have been named according to the convention of
+{app-name}-user-secrets and stored in the cluster ID namespace.
+
+The full values key of the Secret will be replaced by the JSON body
+of your request.
+
+For apps on v5 clusters, please use the v5 version of this endpoint.
+
+### Example PATCH request
+```json
+  {
+    "secret": "new-value"
+  }
+```
+
+If the Secret contained content like:
+
+```json
+  {
+    "secret": "old-value",
+    "secret2": "another-old-value"
+  }
+```
+
+Then the "secret2" will be removed, and "secret" will be set to "new-value"
+
+*/
+func (a *Client) ModifyClusterAppSecretV4(params *ModifyClusterAppSecretV4Params, authInfo runtime.ClientAuthInfoWriter) (*ModifyClusterAppSecretV4OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewModifyClusterAppSecretV4Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "modifyClusterAppSecretV4",
+		Method:             "PATCH",
+		PathPattern:        "/v4/clusters/{cluster_id}/apps/{app_name}/secret/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ModifyClusterAppSecretV4Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ModifyClusterAppSecretV4OK), nil
+
+}
+
+/*
+ModifyClusterAppSecretV5 modifies secret v5
 
 This operation allows you to modify the Secret for a specific app.
 It's only possible to modify Secrets that have been named according to the convention of
@@ -170,21 +348,21 @@ If the Secret contained content like:
 Then the "secret2" will be removed, and "secret" will be set to "new-value"
 
 */
-func (a *Client) ModifyClusterAppSecret(params *ModifyClusterAppSecretParams, authInfo runtime.ClientAuthInfoWriter) (*ModifyClusterAppSecretOK, error) {
+func (a *Client) ModifyClusterAppSecretV5(params *ModifyClusterAppSecretV5Params, authInfo runtime.ClientAuthInfoWriter) (*ModifyClusterAppSecretV5OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewModifyClusterAppSecretParams()
+		params = NewModifyClusterAppSecretV5Params()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "modifyClusterAppSecret",
+		ID:                 "modifyClusterAppSecretV5",
 		Method:             "PATCH",
-		PathPattern:        "/v4/clusters/{cluster_id}/apps/{app_name}/secret/",
+		PathPattern:        "/v5/clusters/{cluster_id}/apps/{app_name}/secret/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &ModifyClusterAppSecretReader{formats: a.formats},
+		Reader:             &ModifyClusterAppSecretV5Reader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -192,7 +370,7 @@ func (a *Client) ModifyClusterAppSecret(params *ModifyClusterAppSecretParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ModifyClusterAppSecretOK), nil
+	return result.(*ModifyClusterAppSecretV5OK), nil
 
 }
 

@@ -25,9 +25,10 @@ type Client struct {
 }
 
 /*
-CreateClusterApp installs an app
+CreateClusterAppV4 installs an app v4
 
 Install an app on a tenant cluster by posting to this endpoint.
+For apps on v5 clusters, please use the v5 version of this endpoint.
 
 The spec field represents the app we'll be installing, and so spec.name refers to
 the name of the chart that installs this app in the catalog.
@@ -76,21 +77,21 @@ This API will only allow you to edit or access configmaps that adhere
 to a strict naming convention.
 
 */
-func (a *Client) CreateClusterApp(params *CreateClusterAppParams, authInfo runtime.ClientAuthInfoWriter) (*CreateClusterAppOK, error) {
+func (a *Client) CreateClusterAppV4(params *CreateClusterAppV4Params, authInfo runtime.ClientAuthInfoWriter) (*CreateClusterAppV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewCreateClusterAppParams()
+		params = NewCreateClusterAppV4Params()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "createClusterApp",
+		ID:                 "createClusterAppV4",
 		Method:             "PUT",
 		PathPattern:        "/v4/clusters/{cluster_id}/apps/{app_name}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &CreateClusterAppReader{formats: a.formats},
+		Reader:             &CreateClusterAppV4Reader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -98,31 +99,110 @@ func (a *Client) CreateClusterApp(params *CreateClusterAppParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateClusterAppOK), nil
+	return result.(*CreateClusterAppV4OK), nil
 
 }
 
 /*
-DeleteClusterApp deletes an app
+CreateClusterAppV5 installs an app v5
 
-This operation allows a user to delete an app.
+Install an app on a tenant cluster by posting to this endpoint.
+
+The spec field represents the app we'll be installing, and so spec.name refers to
+the name of the chart that installs this app in the catalog.
+
+The response you get on a succesful create includes the status of the app. However
+since the App is still initialising and this is an asynchronous operation, it is
+likely that the fields in this status object will be all empty values.
+
+To check on the status of your app, perform a GET to /v5/clusters/{cluster_id}/apps/,
+and check the status field of the app.
+
+### Example PUT request
+```json
+  {
+    "spec": {
+      "catalog": "sample-catalog",
+      "name": "prometheus-chart",
+      "namespace": "prometheus",
+      "version": "0.2.0",
+    }
+  }
+```
+
+### About the user_config field in the response
+This field is not editable by you, but is set automatically by the API
+if a configmap named `{app_name}-user-values` exists in the tenant cluster
+namespace on the control plane.
+
+The `/v4/clusters/{cluster_id}/apps/{app_name}/config/` endpoints allows
+you to create such a configmap using this API.
+
+It is recommended to create your config before creating your app. This
+will result in a faster deploy.
+
+However, you can create your config after creating the app if you wish,
+this API will take care of setting the `user_config` field of the app
+correctly for you.
+
+### Why can't I just set the `user_config` value myself?
+It simplifies usage while also being a security measure.
+
+Furthermore it is also a security measure and ensures that users of this
+API can't access arbitrary configmaps of the control plane.
+
+This API will only allow you to edit or access configmaps that adhere
+to a strict naming convention.
 
 */
-func (a *Client) DeleteClusterApp(params *DeleteClusterAppParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteClusterAppOK, error) {
+func (a *Client) CreateClusterAppV5(params *CreateClusterAppV5Params, authInfo runtime.ClientAuthInfoWriter) (*CreateClusterAppV5OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewDeleteClusterAppParams()
+		params = NewCreateClusterAppV5Params()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "deleteClusterApp",
+		ID:                 "createClusterAppV5",
+		Method:             "PUT",
+		PathPattern:        "/v5/clusters/{cluster_id}/apps/{app_name}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateClusterAppV5Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CreateClusterAppV5OK), nil
+
+}
+
+/*
+DeleteClusterAppV4 deletes an app v4
+
+This operation allows a user to delete an app.
+For apps on v5 clusters, please use the v5 version of this endpoint.
+
+*/
+func (a *Client) DeleteClusterAppV4(params *DeleteClusterAppV4Params, authInfo runtime.ClientAuthInfoWriter) (*DeleteClusterAppV4OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteClusterAppV4Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteClusterAppV4",
 		Method:             "DELETE",
 		PathPattern:        "/v4/clusters/{cluster_id}/apps/{app_name}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &DeleteClusterAppReader{formats: a.formats},
+		Reader:             &DeleteClusterAppV4Reader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -130,7 +210,39 @@ func (a *Client) DeleteClusterApp(params *DeleteClusterAppParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteClusterAppOK), nil
+	return result.(*DeleteClusterAppV4OK), nil
+
+}
+
+/*
+DeleteClusterAppV5 deletes an app v5
+
+This operation allows a user to delete an app.
+
+*/
+func (a *Client) DeleteClusterAppV5(params *DeleteClusterAppV5Params, authInfo runtime.ClientAuthInfoWriter) (*DeleteClusterAppV5OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteClusterAppV5Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteClusterAppV5",
+		Method:             "DELETE",
+		PathPattern:        "/v5/clusters/{cluster_id}/apps/{app_name}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteClusterAppV5Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteClusterAppV5OK), nil
 
 }
 
@@ -218,9 +330,10 @@ func (a *Client) GetAppCatalogs(params *GetAppCatalogsParams, authInfo runtime.C
 }
 
 /*
-GetClusterApps gets cluster apps
+GetClusterAppsV4 gets a list of apps on a cluster v4
 
 Returns an array of apps installed on a given cluster.
+For apps on v5 clusters, please use the v5 version of this endpoint.
 
 ### Example
 ```json
@@ -228,6 +341,7 @@ Returns an array of apps installed on a given cluster.
     {
       "metadata": {
         "name": "my-awesome-prometheus",
+        "labels": {}
       },
 
       "spec": {
@@ -256,21 +370,21 @@ Returns an array of apps installed on a given cluster.
 ```
 
 */
-func (a *Client) GetClusterApps(params *GetClusterAppsParams, authInfo runtime.ClientAuthInfoWriter) (*GetClusterAppsOK, error) {
+func (a *Client) GetClusterAppsV4(params *GetClusterAppsV4Params, authInfo runtime.ClientAuthInfoWriter) (*GetClusterAppsV4OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetClusterAppsParams()
+		params = NewGetClusterAppsV4Params()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getClusterApps",
+		ID:                 "getClusterAppsV4",
 		Method:             "GET",
 		PathPattern:        "/v4/clusters/{cluster_id}/apps/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &GetClusterAppsReader{formats: a.formats},
+		Reader:             &GetClusterAppsV4Reader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -278,12 +392,121 @@ func (a *Client) GetClusterApps(params *GetClusterAppsParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetClusterAppsOK), nil
+	return result.(*GetClusterAppsV4OK), nil
 
 }
 
 /*
-ModifyClusterApp modifies an app
+GetClusterAppsV5 gets a list of apps on a cluster v5
+
+Returns an array of apps installed on a given cluster.
+
+### Example
+```json
+  [
+    {
+      "metadata": {
+        "name": "my-awesome-prometheus",
+        "labels": {}
+      },
+
+      "spec": {
+        "catalog": "sample-catalog"
+        "name": "prometheus-chart",
+        "namespace": "giantswarm",
+        "version": "0.2.0",
+        "user_config": {
+          "configmap": {
+            "name": "prometheus-user-values",
+            "namespace": "123ab"
+          }
+        }
+      },
+
+      "status": {
+        "app_version": "1.0.0",
+        "release": {
+          "last_deployed": "2019-04-08T12:34:00Z",
+          "status": "DEPLOYED"
+        },
+        "version": "0.2.0",
+      }
+    }
+  ]
+```
+
+*/
+func (a *Client) GetClusterAppsV5(params *GetClusterAppsV5Params, authInfo runtime.ClientAuthInfoWriter) (*GetClusterAppsV5OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetClusterAppsV5Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getClusterAppsV5",
+		Method:             "GET",
+		PathPattern:        "/v5/clusters/{cluster_id}/apps/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetClusterAppsV5Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetClusterAppsV5OK), nil
+
+}
+
+/*
+ModifyClusterAppV4 modifies an app v4
+
+This operation allows you to modify an existing app.
+
+For apps on v5 clusters, please use the v5 version of this endpoint.
+
+The following attributes can be modified:
+
+- `version`: Changing this field lets you upgrade or downgrade an app.
+
+`catalog`, `name`, `namespace`, and `user_config` are not editable. If you need to move or rename an app, you should instead delete the app and make it again.
+
+The request body must conform with the [JSON Patch Merge (RFC 7386)](https://tools.ietf.org/html/rfc7386) standard.
+Requests have to be sent with the `Content-Type: application/merge-patch+json` header.
+
+*/
+func (a *Client) ModifyClusterAppV4(params *ModifyClusterAppV4Params, authInfo runtime.ClientAuthInfoWriter) (*ModifyClusterAppV4OK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewModifyClusterAppV4Params()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "modifyClusterAppV4",
+		Method:             "PATCH",
+		PathPattern:        "/v4/clusters/{cluster_id}/apps/{app_name}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ModifyClusterAppV4Reader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ModifyClusterAppV4OK), nil
+
+}
+
+/*
+ModifyClusterAppV5 modifies an app v5
 
 This operation allows you to modify an existing app.
 
@@ -297,21 +520,21 @@ The request body must conform with the [JSON Patch Merge (RFC 7386)](https://too
 Requests have to be sent with the `Content-Type: application/merge-patch+json` header.
 
 */
-func (a *Client) ModifyClusterApp(params *ModifyClusterAppParams, authInfo runtime.ClientAuthInfoWriter) (*ModifyClusterAppOK, error) {
+func (a *Client) ModifyClusterAppV5(params *ModifyClusterAppV5Params, authInfo runtime.ClientAuthInfoWriter) (*ModifyClusterAppV5OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewModifyClusterAppParams()
+		params = NewModifyClusterAppV5Params()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "modifyClusterApp",
+		ID:                 "modifyClusterAppV5",
 		Method:             "PATCH",
-		PathPattern:        "/v4/clusters/{cluster_id}/apps/{app_name}/",
+		PathPattern:        "/v5/clusters/{cluster_id}/apps/{app_name}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &ModifyClusterAppReader{formats: a.formats},
+		Reader:             &ModifyClusterAppV5Reader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -319,7 +542,7 @@ func (a *Client) ModifyClusterApp(params *ModifyClusterAppParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ModifyClusterAppOK), nil
+	return result.(*ModifyClusterAppV5OK), nil
 
 }
 
