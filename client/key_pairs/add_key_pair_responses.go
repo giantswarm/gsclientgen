@@ -39,6 +39,13 @@ func (o *AddKeyPairReader) ReadResponse(response runtime.ClientResponse, consume
 		}
 		return nil, result
 
+	case 503:
+		result := NewAddKeyPairServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		result := NewAddKeyPairDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,6 +105,35 @@ func (o *AddKeyPairUnauthorized) Error() string {
 }
 
 func (o *AddKeyPairUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.V4GenericResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewAddKeyPairServiceUnavailable creates a AddKeyPairServiceUnavailable with default headers values
+func NewAddKeyPairServiceUnavailable() *AddKeyPairServiceUnavailable {
+	return &AddKeyPairServiceUnavailable{}
+}
+
+/*AddKeyPairServiceUnavailable handles this case with default header values.
+
+Not yet available
+*/
+type AddKeyPairServiceUnavailable struct {
+	Payload *models.V4GenericResponse
+}
+
+func (o *AddKeyPairServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /v4/clusters/{cluster_id}/key-pairs/][%d] addKeyPairServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *AddKeyPairServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V4GenericResponse)
 
