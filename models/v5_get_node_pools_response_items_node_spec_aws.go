@@ -8,6 +8,7 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
@@ -16,13 +17,48 @@ import (
 // swagger:model v5GetNodePoolsResponseItemsNodeSpecAws
 type V5GetNodePoolsResponseItemsNodeSpecAws struct {
 
-	// EC2 instance type used by all nodes in this pool
+	// instance distribution
+	InstanceDistribution *V5GetNodePoolsResponseItemsNodeSpecAwsInstanceDistribution `json:"instance_distribution,omitempty"`
+
+	// EC2 instance type used by all nodes in this pool.
 	//
 	InstanceType string `json:"instance_type,omitempty"`
+
+	// Whether this node pool can use different instance types alike the configured one.
+	// Find details on this attribute in the [addNodePool](#operation/addNodePool) operation.
+	//
+	UseAlikeInstanceTypes bool `json:"use_alike_instance_types,omitempty"`
 }
 
 // Validate validates this v5 get node pools response items node spec aws
 func (m *V5GetNodePoolsResponseItemsNodeSpecAws) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateInstanceDistribution(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V5GetNodePoolsResponseItemsNodeSpecAws) validateInstanceDistribution(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.InstanceDistribution) { // not required
+		return nil
+	}
+
+	if m.InstanceDistribution != nil {
+		if err := m.InstanceDistribution.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("instance_distribution")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

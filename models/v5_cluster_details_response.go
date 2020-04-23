@@ -40,6 +40,11 @@ type V5ClusterDetailsResponse struct {
 	// Unique cluster identifier
 	ID string `json:"id,omitempty"`
 
+	// Labels object
+	//
+	// Object containing keys with string values representing the labels attached to the cluster
+	Labels map[string]string `json:"labels,omitempty"`
+
 	// master
 	Master *V5ClusterDetailsResponseMaster `json:"master,omitempty"`
 

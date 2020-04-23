@@ -300,6 +300,51 @@ func (a *Client) GetClusters(params *GetClustersParams, authInfo runtime.ClientA
 }
 
 /*
+GetV5ClustersByLabel gets clusters by labels v5
+
+This operation fetches a list of node pool clusters based
+on a label selector.
+
+The operation accepts label selectors in the same way that `kubectl get -l` does
+([kubernetes label selectors description](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors))
+for listing clusters based on their labels.
+
+The result depends on the permissions of the user.
+A normal user can search over all the clusters that they have access
+to, based on their organization memberships.
+Admin users however, will search over all existing clusters.
+
+The resulting array contains a sparse representation of the cluster objects. To fetch more details on a cluster, use
+the [getClusterV5](#operation/getClusterV5) operation.
+
+*/
+func (a *Client) GetV5ClustersByLabel(params *GetV5ClustersByLabelParams, authInfo runtime.ClientAuthInfoWriter) (*GetV5ClustersByLabelOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetV5ClustersByLabelParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getV5ClustersByLabel",
+		Method:             "POST",
+		PathPattern:        "/v5/clusters/by_label/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetV5ClustersByLabelReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetV5ClustersByLabelOK), nil
+
+}
+
+/*
 ModifyCluster modifies cluster v4
 
 This operation allows to modify an existing cluster.

@@ -18,6 +18,9 @@ type V4InfoResponseFeatures struct {
 
 	// nodepools
 	Nodepools *V4InfoResponseFeaturesNodepools `json:"nodepools,omitempty"`
+
+	// spot instances
+	SpotInstances *V4InfoResponseFeaturesSpotInstances `json:"spot_instances,omitempty"`
 }
 
 // Validate validates this v4 info response features
@@ -25,6 +28,10 @@ func (m *V4InfoResponseFeatures) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateNodepools(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSpotInstances(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -44,6 +51,24 @@ func (m *V4InfoResponseFeatures) validateNodepools(formats strfmt.Registry) erro
 		if err := m.Nodepools.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("nodepools")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V4InfoResponseFeatures) validateSpotInstances(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SpotInstances) { // not required
+		return nil
+	}
+
+	if m.SpotInstances != nil {
+		if err := m.SpotInstances.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("spot_instances")
 			}
 			return err
 		}
