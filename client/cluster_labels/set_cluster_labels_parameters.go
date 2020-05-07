@@ -63,11 +63,33 @@ for the set cluster labels operation typically these are written to a http.Reque
 */
 type SetClusterLabelsParams struct {
 
+	/*XGiantSwarmActivity
+	  Name of an activity to track, like "list-clusters". This allows to
+	analyze several API requests sent in context and gives an idea on
+	the purpose.
+
+
+	*/
+	XGiantSwarmActivity *string
+	/*XGiantSwarmCmdLine
+	  If activity has been issued by a CLI, this header can contain the
+	command line
+
+
+	*/
+	XGiantSwarmCmdLine *string
+	/*XRequestID
+	  A randomly generated key that can be used to track a request throughout
+	services of Giant Swarm.
+
+
+	*/
+	XRequestID *string
 	/*Body
 	  Labels to attach to this cluster.
 
 	*/
-	Body *models.V5ClusterLabelsResponse
+	Body *models.V5SetClusterLabelsRequest
 	/*ClusterID
 	  Cluster ID
 
@@ -112,14 +134,47 @@ func (o *SetClusterLabelsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithXGiantSwarmActivity adds the xGiantSwarmActivity to the set cluster labels params
+func (o *SetClusterLabelsParams) WithXGiantSwarmActivity(xGiantSwarmActivity *string) *SetClusterLabelsParams {
+	o.SetXGiantSwarmActivity(xGiantSwarmActivity)
+	return o
+}
+
+// SetXGiantSwarmActivity adds the xGiantSwarmActivity to the set cluster labels params
+func (o *SetClusterLabelsParams) SetXGiantSwarmActivity(xGiantSwarmActivity *string) {
+	o.XGiantSwarmActivity = xGiantSwarmActivity
+}
+
+// WithXGiantSwarmCmdLine adds the xGiantSwarmCmdLine to the set cluster labels params
+func (o *SetClusterLabelsParams) WithXGiantSwarmCmdLine(xGiantSwarmCmdLine *string) *SetClusterLabelsParams {
+	o.SetXGiantSwarmCmdLine(xGiantSwarmCmdLine)
+	return o
+}
+
+// SetXGiantSwarmCmdLine adds the xGiantSwarmCmdLine to the set cluster labels params
+func (o *SetClusterLabelsParams) SetXGiantSwarmCmdLine(xGiantSwarmCmdLine *string) {
+	o.XGiantSwarmCmdLine = xGiantSwarmCmdLine
+}
+
+// WithXRequestID adds the xRequestID to the set cluster labels params
+func (o *SetClusterLabelsParams) WithXRequestID(xRequestID *string) *SetClusterLabelsParams {
+	o.SetXRequestID(xRequestID)
+	return o
+}
+
+// SetXRequestID adds the xRequestId to the set cluster labels params
+func (o *SetClusterLabelsParams) SetXRequestID(xRequestID *string) {
+	o.XRequestID = xRequestID
+}
+
 // WithBody adds the body to the set cluster labels params
-func (o *SetClusterLabelsParams) WithBody(body *models.V5ClusterLabelsResponse) *SetClusterLabelsParams {
+func (o *SetClusterLabelsParams) WithBody(body *models.V5SetClusterLabelsRequest) *SetClusterLabelsParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the set cluster labels params
-func (o *SetClusterLabelsParams) SetBody(body *models.V5ClusterLabelsResponse) {
+func (o *SetClusterLabelsParams) SetBody(body *models.V5SetClusterLabelsRequest) {
 	o.Body = body
 }
 
@@ -141,6 +196,33 @@ func (o *SetClusterLabelsParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
+
+	if o.XGiantSwarmActivity != nil {
+
+		// header param X-Giant-Swarm-Activity
+		if err := r.SetHeaderParam("X-Giant-Swarm-Activity", *o.XGiantSwarmActivity); err != nil {
+			return err
+		}
+
+	}
+
+	if o.XGiantSwarmCmdLine != nil {
+
+		// header param X-Giant-Swarm-CmdLine
+		if err := r.SetHeaderParam("X-Giant-Swarm-CmdLine", *o.XGiantSwarmCmdLine); err != nil {
+			return err
+		}
+
+	}
+
+	if o.XRequestID != nil {
+
+		// header param X-Request-ID
+		if err := r.SetHeaderParam("X-Request-ID", *o.XRequestID); err != nil {
+			return err
+		}
+
+	}
 
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {

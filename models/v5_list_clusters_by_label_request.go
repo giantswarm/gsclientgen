@@ -13,9 +13,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// V5ListClustersByLabel v5 list clusters by label
-// swagger:model v5ListClustersByLabel
-type V5ListClustersByLabel struct {
+// V5ListClustersByLabelRequest v5 list clusters by label request
+// swagger:model v5ListClustersByLabelRequest
+type V5ListClustersByLabelRequest struct {
 
 	// Label selector
 	//
@@ -24,8 +24,8 @@ type V5ListClustersByLabel struct {
 	Labels *string `json:"labels"`
 }
 
-// Validate validates this v5 list clusters by label
-func (m *V5ListClustersByLabel) Validate(formats strfmt.Registry) error {
+// Validate validates this v5 list clusters by label request
+func (m *V5ListClustersByLabelRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateLabels(formats); err != nil {
@@ -38,7 +38,7 @@ func (m *V5ListClustersByLabel) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *V5ListClustersByLabel) validateLabels(formats strfmt.Registry) error {
+func (m *V5ListClustersByLabelRequest) validateLabels(formats strfmt.Registry) error {
 
 	if err := validate.Required("labels", "body", m.Labels); err != nil {
 		return err
@@ -48,7 +48,7 @@ func (m *V5ListClustersByLabel) validateLabels(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *V5ListClustersByLabel) MarshalBinary() ([]byte, error) {
+func (m *V5ListClustersByLabelRequest) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -56,8 +56,8 @@ func (m *V5ListClustersByLabel) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *V5ListClustersByLabel) UnmarshalBinary(b []byte) error {
-	var res V5ListClustersByLabel
+func (m *V5ListClustersByLabelRequest) UnmarshalBinary(b []byte) error {
+	var res V5ListClustersByLabelRequest
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

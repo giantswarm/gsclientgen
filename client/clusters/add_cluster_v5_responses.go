@@ -32,6 +32,13 @@ func (o *AddClusterV5Reader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return result, nil
 
+	case 400:
+		result := NewAddClusterV5BadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	case 401:
 		result := NewAddClusterV5Unauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -71,6 +78,35 @@ func (o *AddClusterV5Created) Error() string {
 func (o *AddClusterV5Created) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V5ClusterDetailsResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewAddClusterV5BadRequest creates a AddClusterV5BadRequest with default headers values
+func NewAddClusterV5BadRequest() *AddClusterV5BadRequest {
+	return &AddClusterV5BadRequest{}
+}
+
+/*AddClusterV5BadRequest handles this case with default header values.
+
+Invalid request
+*/
+type AddClusterV5BadRequest struct {
+	Payload *models.V4GenericResponse
+}
+
+func (o *AddClusterV5BadRequest) Error() string {
+	return fmt.Sprintf("[POST /v5/clusters/][%d] addClusterV5BadRequest  %+v", 400, o.Payload)
+}
+
+func (o *AddClusterV5BadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.V4GenericResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -89,7 +89,7 @@ type GetV5ClustersByLabelParams struct {
 	  Label selector
 
 	*/
-	Body *models.V5ListClustersByLabel
+	Body *models.V5ListClustersByLabelRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -163,13 +163,13 @@ func (o *GetV5ClustersByLabelParams) SetXRequestID(xRequestID *string) {
 }
 
 // WithBody adds the body to the get v5 clusters by label params
-func (o *GetV5ClustersByLabelParams) WithBody(body *models.V5ListClustersByLabel) *GetV5ClustersByLabelParams {
+func (o *GetV5ClustersByLabelParams) WithBody(body *models.V5ListClustersByLabelRequest) *GetV5ClustersByLabelParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the get v5 clusters by label params
-func (o *GetV5ClustersByLabelParams) SetBody(body *models.V5ListClustersByLabel) {
+func (o *GetV5ClustersByLabelParams) SetBody(body *models.V5ListClustersByLabelRequest) {
 	o.Body = body
 }
 
