@@ -1,4 +1,4 @@
-module github.com/giantswarm/gsclientgen
+module github.com/giantswarm/gsclientgen/v2
 
 go 1.13
 
