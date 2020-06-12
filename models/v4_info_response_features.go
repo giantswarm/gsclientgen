@@ -16,6 +16,9 @@ import (
 // swagger:model v4InfoResponseFeatures
 type V4InfoResponseFeatures struct {
 
+	// ha masters
+	HaMasters *V4InfoResponseFeaturesHaMasters `json:"ha_masters,omitempty"`
+
 	// nodepools
 	Nodepools *V4InfoResponseFeaturesNodepools `json:"nodepools,omitempty"`
 
@@ -26,6 +29,10 @@ type V4InfoResponseFeatures struct {
 // Validate validates this v4 info response features
 func (m *V4InfoResponseFeatures) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateHaMasters(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateNodepools(formats); err != nil {
 		res = append(res, err)
@@ -38,6 +45,24 @@ func (m *V4InfoResponseFeatures) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V4InfoResponseFeatures) validateHaMasters(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.HaMasters) { // not required
+		return nil
+	}
+
+	if m.HaMasters != nil {
+		if err := m.HaMasters.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ha_masters")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

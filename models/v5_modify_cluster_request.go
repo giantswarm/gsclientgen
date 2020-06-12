@@ -8,12 +8,16 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
 // V5ModifyClusterRequest Request model for cluster modification
 // swagger:model v5ModifyClusterRequest
 type V5ModifyClusterRequest struct {
+
+	// master nodes
+	MasterNodes *V5ModifyClusterRequestMasterNodes `json:"master_nodes,omitempty"`
 
 	// New cluster name
 	Name string `json:"name,omitempty"`
@@ -24,6 +28,33 @@ type V5ModifyClusterRequest struct {
 
 // Validate validates this v5 modify cluster request
 func (m *V5ModifyClusterRequest) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateMasterNodes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V5ModifyClusterRequest) validateMasterNodes(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.MasterNodes) { // not required
+		return nil
+	}
+
+	if m.MasterNodes != nil {
+		if err := m.MasterNodes.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("master_nodes")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

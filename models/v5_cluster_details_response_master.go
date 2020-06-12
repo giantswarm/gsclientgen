@@ -11,7 +11,11 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// V5ClusterDetailsResponseMaster Information about the master node
+// V5ClusterDetailsResponseMaster Legacy information about the master node.
+//
+// *Deprecation notice:* This attribute is replaced by `master_nodes`.
+// It will be served until July 30, 2020 in the case that the cluster
+// specification has one master node only.
 //
 // swagger:model v5ClusterDetailsResponseMaster
 type V5ClusterDetailsResponseMaster struct {

@@ -32,6 +32,13 @@ func (o *ModifyClusterReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return result, nil
 
+	case 400:
+		result := NewModifyClusterBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	case 401:
 		result := NewModifyClusterUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +85,35 @@ func (o *ModifyClusterOK) Error() string {
 func (o *ModifyClusterOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V4ClusterDetailsResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewModifyClusterBadRequest creates a ModifyClusterBadRequest with default headers values
+func NewModifyClusterBadRequest() *ModifyClusterBadRequest {
+	return &ModifyClusterBadRequest{}
+}
+
+/*ModifyClusterBadRequest handles this case with default header values.
+
+Invalid input
+*/
+type ModifyClusterBadRequest struct {
+	Payload *models.V4GenericResponse
+}
+
+func (o *ModifyClusterBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /v4/clusters/{cluster_id}/][%d] modifyClusterBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ModifyClusterBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.V4GenericResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

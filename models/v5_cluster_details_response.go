@@ -48,6 +48,9 @@ type V5ClusterDetailsResponse struct {
 	// master
 	Master *V5ClusterDetailsResponseMaster `json:"master,omitempty"`
 
+	// master nodes
+	MasterNodes *V5ClusterDetailsResponseMasterNodes `json:"master_nodes,omitempty"`
+
 	// Cluster name
 	Name string `json:"name,omitempty"`
 
@@ -77,6 +80,10 @@ func (m *V5ClusterDetailsResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateMaster(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMasterNodes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -138,6 +145,24 @@ func (m *V5ClusterDetailsResponse) validateMaster(formats strfmt.Registry) error
 		if err := m.Master.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("master")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V5ClusterDetailsResponse) validateMasterNodes(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.MasterNodes) { // not required
+		return nil
+	}
+
+	if m.MasterNodes != nil {
+		if err := m.MasterNodes.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("master_nodes")
 			}
 			return err
 		}

@@ -46,6 +46,13 @@ func (o *CreateUserReader) ReadResponse(response runtime.ClientResponse, consume
 		}
 		return nil, result
 
+	case 409:
+		result := NewCreateUserConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		result := NewCreateUserDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -94,7 +101,7 @@ func NewCreateUserBadRequest() *CreateUserBadRequest {
 
 /*CreateUserBadRequest handles this case with default header values.
 
-User already exists
+Invalid input
 */
 type CreateUserBadRequest struct {
 	Payload *models.V4GenericResponse
@@ -134,6 +141,35 @@ func (o *CreateUserUnauthorized) Error() string {
 }
 
 func (o *CreateUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.V4GenericResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateUserConflict creates a CreateUserConflict with default headers values
+func NewCreateUserConflict() *CreateUserConflict {
+	return &CreateUserConflict{}
+}
+
+/*CreateUserConflict handles this case with default header values.
+
+User already exists
+*/
+type CreateUserConflict struct {
+	Payload *models.V4GenericResponse
+}
+
+func (o *CreateUserConflict) Error() string {
+	return fmt.Sprintf("[PUT /v4/users/{email}/][%d] createUserConflict  %+v", 409, o.Payload)
+}
+
+func (o *CreateUserConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.V4GenericResponse)
 

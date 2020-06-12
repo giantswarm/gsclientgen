@@ -12,7 +12,12 @@ import (
 )
 
 // V5AddClusterRequestMaster Configuration regarding the master node. If not given, the master node
-// will be placed automatically.
+// will be placed automatically. Must not be used together with
+// the `master_nodes` property.
+//
+// *Deprecation notice:* This property has been replaced by `master_nodes`
+// and is deprecated. It will still be accepted in requests until
+// July 30, 2020. After that, using it will issue an error `400 Bad Request`.
 //
 // swagger:model v5AddClusterRequestMaster
 type V5AddClusterRequestMaster struct {
