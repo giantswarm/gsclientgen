@@ -27,11 +27,14 @@ type Client struct {
 /*
 CreateClusterAppV4 installs an app v4
 
-Install an app on a tenant cluster by posting to this endpoint.
+Install an app on a tenant cluster by using this endpoint.
 For apps on v5 clusters, please use the v5 version of this endpoint.
 
 The spec field represents the app we'll be installing, and so spec.name refers to
-the name of the chart that installs this app in the catalog.
+the name of the app in the catalog.
+
+The app_name in the path of this request is the name you want to give the instance
+of this app.
 
 The response you get on a succesful create includes the status of the app. However
 since the App is still initialising and this is an asynchronous operation, it is
@@ -42,11 +45,13 @@ and check the status field of the app.
 
 ### Example PUT request
 ```json
+  /v4/clusters/abc12/apps/my-very-own-efk/
+
   {
     "spec": {
-      "catalog": "sample-catalog",
-      "name": "prometheus-chart",
-      "namespace": "prometheus",
+      "catalog": "giantswarm",
+      "name": "efk-stack-app",
+      "namespace": "efk-stack-app",
       "version": "0.2.0",
     }
   }
@@ -54,11 +59,11 @@ and check the status field of the app.
 
 ### About the user_config field in the response
 This field is not editable by you, but is set automatically by the API
-if a configmap named `{app_name}-user-values` exists in the tenant cluster
+if a ConfigMap named `{app_name}-user-values` exists in the tenant cluster
 namespace on the control plane.
 
 The `/v4/clusters/{cluster_id}/apps/{app_name}/config/` endpoints allows
-you to create such a configmap using this API.
+you to create such a ConfigMap using this API.
 
 It is recommended to create your config before creating your app. This
 will result in a faster deploy.
@@ -106,10 +111,13 @@ func (a *Client) CreateClusterAppV4(params *CreateClusterAppV4Params, authInfo r
 /*
 CreateClusterAppV5 installs an app v5
 
-Install an app on a tenant cluster by posting to this endpoint.
+Install an app on a tenant cluster by using this endpoint.
 
 The spec field represents the app we'll be installing, and so spec.name refers to
-the name of the chart that installs this app in the catalog.
+the name of the app in the catalog.
+
+The app_name in the path of this request is the name you want to give the instance
+of this app.
 
 The response you get on a succesful create includes the status of the app. However
 since the App is still initialising and this is an asynchronous operation, it is
@@ -120,11 +128,13 @@ and check the status field of the app.
 
 ### Example PUT request
 ```json
+  /v5/clusters/abc12/apps/my-very-own-efk/
+
   {
     "spec": {
-      "catalog": "sample-catalog",
-      "name": "prometheus-chart",
-      "namespace": "prometheus",
+      "catalog": "giantswarm",
+      "name": "efk-stack-app",
+      "namespace": "efk-stack-app",
       "version": "0.2.0",
     }
   }
@@ -132,11 +142,11 @@ and check the status field of the app.
 
 ### About the user_config field in the response
 This field is not editable by you, but is set automatically by the API
-if a configmap named `{app_name}-user-values` exists in the tenant cluster
+if a ConfigMap named `{app_name}-user-values` exists in the tenant cluster
 namespace on the control plane.
 
-The `/v4/clusters/{cluster_id}/apps/{app_name}/config/` endpoints allows
-you to create such a configmap using this API.
+The `/v5/clusters/{cluster_id}/apps/{app_name}/config/` endpoints allows
+you to create such a ConfigMap using this API.
 
 It is recommended to create your config before creating your app. This
 will result in a faster deploy.
@@ -473,7 +483,10 @@ The following attributes can be modified:
 
 - `version`: Changing this field lets you upgrade or downgrade an app.
 
-`catalog`, `name`, `namespace`, and `user_config` are not editable. If you need to move or rename an app, you should instead delete the app and make it again.
+`catalog`, `name`, `namespace`, are not editable. If you need to move or rename an app, you should instead delete the app and make it again.
+
+`user_config` holds a reference to a user-values ConfigMap and is also not editable at this endpoint.
+A user-values ConfigMap can be created using the [corresponding v4 app config creator endpoint](https://docs.giantswarm.io/api/#operation/createClusterAppConfigV4).
 
 The request body must conform with the [JSON Patch Merge (RFC 7386)](https://tools.ietf.org/html/rfc7386) standard.
 Requests have to be sent with the `Content-Type: application/merge-patch+json` header.
@@ -514,7 +527,10 @@ The following attributes can be modified:
 
 - `version`: Changing this field lets you upgrade or downgrade an app.
 
-`catalog`, `name`, `namespace`, and `user_config` are not editable. If you need to move or rename an app, you should instead delete the app and make it again.
+`catalog`, `name`, `namespace`, are not editable. If you need to move or rename an app, you should instead delete the app and make it again.
+
+`user_config` holds a reference to a user-values ConfigMap and is also not editable at this endpoint.
+A user-values ConfigMap can be created using the [corresponding v5 app config creator endpoint](https://docs.giantswarm.io/api/#operation/createClusterAppConfigV5).
 
 The request body must conform with the [JSON Patch Merge (RFC 7386)](https://tools.ietf.org/html/rfc7386) standard.
 Requests have to be sent with the `Content-Type: application/merge-patch+json` header.

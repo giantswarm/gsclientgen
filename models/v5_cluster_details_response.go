@@ -63,7 +63,7 @@ type V5ClusterDetailsResponse struct {
 	//
 	ReleaseVersion string `json:"release_version,omitempty"`
 
-	// versions
+	// List of release versions the cluster has used.
 	Versions []*V5ClusterDetailsResponseVersionsItems `json:"versions"`
 }
 

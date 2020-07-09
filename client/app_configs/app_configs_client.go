@@ -27,7 +27,7 @@ type Client struct {
 /*
 CreateClusterAppConfigV4 creates app config v4
 
-This operation allows you to create a values configmap for a specific app. The app does
+This operation allows you to create a user-values ConfigMap for a specific app. The app does
 not have to exist before hand.
 
 If the app does exist, this endpoint will ensure that the App CR gets it's
@@ -85,7 +85,7 @@ func (a *Client) CreateClusterAppConfigV4(params *CreateClusterAppConfigV4Params
 /*
 CreateClusterAppConfigV5 creates app config v5
 
-This operation allows you to create a values configmap for a specific app. The app does
+This operation allows you to create a user-values ConfigMap for a specific app. The app does
 not have to exist before hand.
 
 If the app does exist, this endpoint will ensure that the App CR gets it's
@@ -147,8 +147,8 @@ Calling this endpoint will delete the ConfigMap, but it does not remove the refe
 
 Do make sure you also update the app and remove the reference.
 
-The preferred order is to first remove the reference to the configmap by
-updating the app, and only then delete the configmap using this endpoint.
+The preferred order is to first remove the reference to the ConfigMap by
+updating the app, and only then delete the ConfigMap using this endpoint.
 
 For apps on v5 clusters, please use the v5 version of this endpoint.
 
@@ -189,8 +189,8 @@ Calling this endpoint will delete the ConfigMap, but it does not remove the refe
 
 Do make sure you also update the app and remove the reference.
 
-The preferred order is to first remove the reference to the configmap by
-updating the app, and only then delete the configmap using this endpoint.
+The preferred order is to first remove the reference to the ConfigMap by
+updating the app, and only then delete the ConfigMap using this endpoint.
 
 */
 func (a *Client) DeleteClusterAppConfigV5(params *DeleteClusterAppConfigV5Params, authInfo runtime.ClientAuthInfoWriter) (*DeleteClusterAppConfigV5OK, error) {
@@ -222,7 +222,7 @@ func (a *Client) DeleteClusterAppConfigV5(params *DeleteClusterAppConfigV5Params
 /*
 GetClusterAppConfigV4 gets app config v4
 
-This operation allows you to fetch the user values configmap associated
+This operation allows you to fetch the user-values ConfigMap associated
 with an app.
 
 For apps on v5 clusters, please use the v5 version of this endpoint.
@@ -257,7 +257,7 @@ func (a *Client) GetClusterAppConfigV4(params *GetClusterAppConfigV4Params, auth
 /*
 GetClusterAppConfigV5 gets app config v5
 
-This operation allows you to fetch the user values configmap associated
+This operation allows you to fetch the user-values ConfigMap associated
 with an app.
 
 */
@@ -290,11 +290,11 @@ func (a *Client) GetClusterAppConfigV5(params *GetClusterAppConfigV5Params, auth
 /*
 ModifyClusterAppConfigV4 modifies app config v4
 
-This operation allows you to modify the values configmap for a specific app.
+This operation allows you to modify the values ConfigMap for a specific app.
 It's only possible to modify app configs that have been named according to the convention of
 {app-name}-user-values and stored in the cluster ID namespace.
 
-The full values key of the configmap will be replaced by the JSON body
+The full values key of the ConfigMap will be replaced by the JSON body
 of your request.
 
 For apps on v5 clusters, please use the v5 version of this endpoint.
@@ -308,7 +308,7 @@ For apps on v5 clusters, please use the v5 version of this endpoint.
   }
 ```
 
-If the configmap contained content like:
+If the ConfigMap contained content like:
 
 ```json
   {
@@ -354,11 +354,11 @@ func (a *Client) ModifyClusterAppConfigV4(params *ModifyClusterAppConfigV4Params
 /*
 ModifyClusterAppConfigV5 modifies app config v5
 
-This operation allows you to modify the values configmap for a specific app.
+This operation allows you to modify the values ConfigMap for a specific app.
 It's only possible to modify app configs that have been named according to the convention of
 {app-name}-user-values and stored in the cluster ID namespace.
 
-The full values key of the configmap will be replaced by the JSON body
+The full values key of the ConfigMap will be replaced by the JSON body
 of your request.
 
 ### Example PATCH request
@@ -370,7 +370,7 @@ of your request.
   }
 ```
 
-If the configmap contained content like:
+If the ConfigMap contained content like:
 
 ```json
   {

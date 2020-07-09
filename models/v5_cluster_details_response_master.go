@@ -14,8 +14,8 @@ import (
 // V5ClusterDetailsResponseMaster Legacy information about the master node.
 //
 // *Deprecation notice:* This attribute is replaced by `master_nodes`.
-// It will be served until July 30, 2020 in the case that the cluster
-// specification has one master node only.
+// It will be served for compatibility reasons until August 31, 2020
+// in the case that the cluster specification has one master node only.
 //
 // swagger:model v5ClusterDetailsResponseMaster
 type V5ClusterDetailsResponseMaster struct {
