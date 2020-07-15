@@ -19,6 +19,9 @@ type V5GetNodePoolResponseNodeSpec struct {
 	// aws
 	Aws *V5GetNodePoolResponseNodeSpecAws `json:"aws,omitempty"`
 
+	// azure
+	Azure *V5GetNodePoolResponseNodeSpecAzure `json:"azure,omitempty"`
+
 	// volume sizes gb
 	VolumeSizesGb *V5GetNodePoolResponseNodeSpecVolumeSizesGb `json:"volume_sizes_gb,omitempty"`
 }
@@ -28,6 +31,10 @@ func (m *V5GetNodePoolResponseNodeSpec) Validate(formats strfmt.Registry) error 
 	var res []error
 
 	if err := m.validateAws(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAzure(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -51,6 +58,24 @@ func (m *V5GetNodePoolResponseNodeSpec) validateAws(formats strfmt.Registry) err
 		if err := m.Aws.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("aws")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V5GetNodePoolResponseNodeSpec) validateAzure(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Azure) { // not required
+		return nil
+	}
+
+	if m.Azure != nil {
+		if err := m.Azure.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("azure")
 			}
 			return err
 		}
