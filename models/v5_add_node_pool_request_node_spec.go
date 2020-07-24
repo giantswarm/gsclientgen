@@ -18,6 +18,9 @@ type V5AddNodePoolRequestNodeSpec struct {
 
 	// aws
 	Aws *V5AddNodePoolRequestNodeSpecAws `json:"aws,omitempty"`
+
+	// azure
+	Azure *V5AddNodePoolRequestNodeSpecAzure `json:"azure,omitempty"`
 }
 
 // Validate validates this v5 add node pool request node spec
@@ -25,6 +28,10 @@ func (m *V5AddNodePoolRequestNodeSpec) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAws(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAzure(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -44,6 +51,24 @@ func (m *V5AddNodePoolRequestNodeSpec) validateAws(formats strfmt.Registry) erro
 		if err := m.Aws.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("aws")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *V5AddNodePoolRequestNodeSpec) validateAzure(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Azure) { // not required
+		return nil
+	}
+
+	if m.Azure != nil {
+		if err := m.Azure.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("azure")
 			}
 			return err
 		}
