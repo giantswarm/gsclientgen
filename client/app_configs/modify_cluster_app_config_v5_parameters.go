@@ -16,7 +16,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/giantswarm/gsclientgen/models"
+	models "github.com/giantswarm/gsclientgen/v2/models"
 )
 
 // NewModifyClusterAppConfigV5Params creates a new ModifyClusterAppConfigV5Params object

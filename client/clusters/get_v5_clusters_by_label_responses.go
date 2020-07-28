@@ -13,7 +13,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/giantswarm/gsclientgen/models"
+	models "github.com/giantswarm/gsclientgen/v2/models"
 )
 
 // GetV5ClustersByLabelReader is a Reader for the GetV5ClustersByLabel structure.

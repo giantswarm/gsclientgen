@@ -15,8 +15,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/giantswarm/gsclientgen/client"
-	"github.com/giantswarm/gsclientgen/client/clusters"
+	"github.com/giantswarm/gsclientgen/v2/client"
+	"github.com/giantswarm/gsclientgen/v2/client/clusters"
 
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"

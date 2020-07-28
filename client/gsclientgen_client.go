@@ -11,19 +11,19 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/giantswarm/gsclientgen/client/app_configs"
-	"github.com/giantswarm/gsclientgen/client/app_secrets"
-	"github.com/giantswarm/gsclientgen/client/apps"
-	"github.com/giantswarm/gsclientgen/client/auth_tokens"
-	"github.com/giantswarm/gsclientgen/client/cluster_labels"
-	"github.com/giantswarm/gsclientgen/client/clusters"
-	"github.com/giantswarm/gsclientgen/client/exception_notifications"
-	"github.com/giantswarm/gsclientgen/client/info"
-	"github.com/giantswarm/gsclientgen/client/key_pairs"
-	"github.com/giantswarm/gsclientgen/client/node_pools"
-	"github.com/giantswarm/gsclientgen/client/organizations"
-	"github.com/giantswarm/gsclientgen/client/releases"
-	"github.com/giantswarm/gsclientgen/client/users"
+	"github.com/giantswarm/gsclientgen/v2/client/app_configs"
+	"github.com/giantswarm/gsclientgen/v2/client/app_secrets"
+	"github.com/giantswarm/gsclientgen/v2/client/apps"
+	"github.com/giantswarm/gsclientgen/v2/client/auth_tokens"
+	"github.com/giantswarm/gsclientgen/v2/client/cluster_labels"
+	"github.com/giantswarm/gsclientgen/v2/client/clusters"
+	"github.com/giantswarm/gsclientgen/v2/client/exception_notifications"
+	"github.com/giantswarm/gsclientgen/v2/client/info"
+	"github.com/giantswarm/gsclientgen/v2/client/key_pairs"
+	"github.com/giantswarm/gsclientgen/v2/client/node_pools"
+	"github.com/giantswarm/gsclientgen/v2/client/organizations"
+	"github.com/giantswarm/gsclientgen/v2/client/releases"
+	"github.com/giantswarm/gsclientgen/v2/client/users"
 )
 
 // Default gsclientgen HTTP client.
