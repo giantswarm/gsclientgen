@@ -3,7 +3,7 @@
 
 # Giant Swarm Go Client (generated)
 
-Experimental Go/Golang client for the Giant Swarm API, auto-generated based on the [OAI/Swagger specification](https://gothub.com/giantswarm/api-spec) using go-swagger.
+Experimental Go/Golang client for the Giant Swarm API, auto-generated based on the [OAI/Swagger specification](https://github.com/giantswarm/api-spec) using go-swagger.
 
 ## Usage
 
