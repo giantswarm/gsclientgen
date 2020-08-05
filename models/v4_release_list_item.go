@@ -23,7 +23,8 @@ type V4ReleaseListItem struct {
 	// upgrades. Older versions become unavailable and thus have the
 	// value `false` here.
 	//
-	Active bool `json:"active,omitempty"`
+	// Required: true
+	Active bool `json:"active"`
 
 	// Structured list of changes in this release, in comparison to the
 	// previous version, with respect to the contained components.
@@ -49,6 +50,10 @@ type V4ReleaseListItem struct {
 func (m *V4ReleaseListItem) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateActive(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateChangelog(formats); err != nil {
 		res = append(res, err)
 	}
@@ -68,6 +73,15 @@ func (m *V4ReleaseListItem) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *V4ReleaseListItem) validateActive(formats strfmt.Registry) error {
+
+	if err := validate.Required("active", "body", bool(m.Active)); err != nil {
+		return err
+	}
+
 	return nil
 }
 
