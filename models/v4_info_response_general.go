@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -27,6 +29,9 @@ type V4InfoResponseGeneral struct {
 	// Unique name of the installation
 	InstallationName string `json:"installation_name,omitempty"`
 
+	// Information on some kubernetes versions and their end of life dates.
+	KubernetesVersions []*V4InfoResponseGeneralKubernetesVersionsItems `json:"kubernetes_versions"`
+
 	// The technical provider used in this installation. Either "kvm", "aws", or "azure".
 	Provider string `json:"provider,omitempty"`
 }
@@ -36,6 +41,10 @@ func (m *V4InfoResponseGeneral) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAvailabilityZones(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateKubernetesVersions(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -58,6 +67,31 @@ func (m *V4InfoResponseGeneral) validateAvailabilityZones(formats strfmt.Registr
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *V4InfoResponseGeneral) validateKubernetesVersions(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.KubernetesVersions) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.KubernetesVersions); i++ {
+		if swag.IsZero(m.KubernetesVersions[i]) { // not required
+			continue
+		}
+
+		if m.KubernetesVersions[i] != nil {
+			if err := m.KubernetesVersions[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("kubernetes_versions" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

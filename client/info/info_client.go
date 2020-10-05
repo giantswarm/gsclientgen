@@ -41,6 +41,16 @@ prevent creating clusters with more worker nodes than possible.
     "installation_name": "shire",
     "provider": "aws",
     "datacenter": "eu-central-1",
+    "kubernetes_versions": [
+      {
+        "minor_version": "1.15",
+        "eol_date": "2020-03-24"
+      },
+      {
+        "minor_version": "1.16",
+        "eol_date": "2020-08-26"
+      }
+    ],
     "availability_zones": {
       "max": 3,
       "default": 1,
@@ -79,6 +89,16 @@ prevent creating clusters with more worker nodes than possible.
     "installation_name": "isengard",
     "provider": "kvm",
     "datacenter": "string",
+    "kubernetes_versions": [
+      {
+        "minor_version": "1.15",
+        "eol_date": "2020-03-24"
+      },
+      {
+        "minor_version": "1.16",
+        "eol_date": "2020-08-26"
+      }
+    ],
     "availability_zones": {
       "max": 1,
       "default": 1,

@@ -25,6 +25,9 @@ type V5AddNodePoolRequestAvailabilityZones struct {
 	// Number of zones to use. If given, the zones are picked
 	// automatically. _(Maximum limit of 4 supported.)_
 	//
+	// On Azure, to increase the chances of finding available GPU instances,
+	// set the value to `-1` (no specific AZ selected).
+	//
 	Number int64 `json:"number,omitempty"`
 
 	// Names of the availability zones to use. _(Must be same region as the cluster.)_
