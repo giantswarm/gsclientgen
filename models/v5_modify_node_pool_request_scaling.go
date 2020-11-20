@@ -22,7 +22,7 @@ type V5ModifyNodePoolRequestScaling struct {
 	Max int64 `json:"max,omitempty"`
 
 	// Minimum number of nodes in the pool
-	Min int64 `json:"min,omitempty"`
+	Min *int64 `json:"min,omitempty"`
 }
 
 // Validate validates this v5 modify node pool request scaling
