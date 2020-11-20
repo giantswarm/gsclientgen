@@ -23,7 +23,7 @@ type V4ModifyClusterRequestScaling struct {
 
 	// Minimum number of cluster nodes
 	//
-	Min int64 `json:"min,omitempty"`
+	Min *int64 `json:"min,omitempty"`
 }
 
 // Validate validates this v4 modify cluster request scaling

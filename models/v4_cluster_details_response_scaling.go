@@ -23,7 +23,7 @@ type V4ClusterDetailsResponseScaling struct {
 
 	// Minimum number of cluster nodes as configured
 	//
-	Min int64 `json:"min,omitempty"`
+	Min *int64 `json:"min,omitempty"`
 }
 
 // Validate validates this v4 cluster details response scaling
