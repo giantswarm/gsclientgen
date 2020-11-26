@@ -8,6 +8,7 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
@@ -15,6 +16,16 @@ import (
 //
 // swagger:model v5AddClusterRequestMasterNodes
 type V5AddClusterRequestMasterNodes struct {
+
+	// This field allows manually specifying the availability zone(s) where the master node(s)
+	// should be created in.
+	//
+	// This parameter is currently only supported on <span class="badge azure">Azure</span>.
+	//
+	AvailabilityZones []string `json:"availability_zones"`
+
+	// azure
+	Azure *V5AddClusterRequestMasterNodesAzure `json:"azure,omitempty"`
 
 	// Specifies whether or not this cluster should run with redundant master
 	// nodes (high availability).
@@ -32,6 +43,33 @@ type V5AddClusterRequestMasterNodes struct {
 
 // Validate validates this v5 add cluster request master nodes
 func (m *V5AddClusterRequestMasterNodes) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAzure(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V5AddClusterRequestMasterNodes) validateAzure(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Azure) { // not required
+		return nil
+	}
+
+	if m.Azure != nil {
+		if err := m.Azure.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("azure")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
