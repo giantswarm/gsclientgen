@@ -33,7 +33,7 @@ A key pair consists of an unencrypted private RSA key and an X.509 certificate. 
 
 In addition to the credentials itself, a key pair has some metadata like a unique ID, a creation timestamp and a free text `description` that you can use at will, for example to note for whom a key pair has been issued.
 
-After creation of a tenant cluster, it might take a couple of seconds before this operation can be performed successfully. In this case, the API will respond with code 503, indicating that you should retry the call after some wait time.
+After creation of a workload cluster, it might take a couple of seconds before this operation can be performed successfully. In this case, the API will respond with code 503, indicating that you should retry the call after some wait time.
 
 ### Customizing the certificate's subject for K8s RBAC
 

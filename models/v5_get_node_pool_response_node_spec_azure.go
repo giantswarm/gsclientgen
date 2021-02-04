@@ -8,6 +8,7 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
@@ -16,6 +17,9 @@ import (
 // swagger:model v5GetNodePoolResponseNodeSpecAzure
 type V5GetNodePoolResponseNodeSpecAzure struct {
 
+	// spot instances
+	SpotInstances *V5GetNodePoolResponseNodeSpecAzureSpotInstances `json:"spot_instances,omitempty"`
+
 	// Azure virtual machine size used by all nodes in this pool.
 	//
 	VMSize string `json:"vm_size,omitempty"`
@@ -23,6 +27,33 @@ type V5GetNodePoolResponseNodeSpecAzure struct {
 
 // Validate validates this v5 get node pool response node spec azure
 func (m *V5GetNodePoolResponseNodeSpecAzure) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateSpotInstances(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *V5GetNodePoolResponseNodeSpecAzure) validateSpotInstances(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SpotInstances) { // not required
+		return nil
+	}
+
+	if m.SpotInstances != nil {
+		if err := m.SpotInstances.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("spot_instances")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

@@ -18,7 +18,7 @@ type V4AppSpecUserConfigSecret struct {
 	// Name of the Secret containing user-secrets to apply, e.g. prometheus-user-secrets
 	Name string `json:"name,omitempty"`
 
-	// Namespace of the user-secrets Secret on the control plane, e.g. 123ab
+	// Namespace of the user-secrets Secret on the management cluster, e.g. 123ab
 	Namespace string `json:"namespace,omitempty"`
 }
 

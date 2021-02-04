@@ -28,7 +28,7 @@ type Client struct {
 AddCluster creates cluster v4
 
 This operation is used to create a new Kubernetes cluster or
-"tenant cluster".
+"workload cluster".
 
 ### Cluster definition
 

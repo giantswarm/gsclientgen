@@ -27,7 +27,7 @@ type Client struct {
 /*
 CreateClusterAppV4 installs an app v4
 
-Install an app on a tenant cluster by using this endpoint.
+Install an app on a workload cluster by using this endpoint.
 For apps on v5 clusters, please use the v5 version of this endpoint.
 
 The spec field represents the app we'll be installing, and so spec.name refers to
@@ -59,8 +59,8 @@ and check the status field of the app.
 
 ### About the user_config field in the response
 This field is not editable by you, but is set automatically by the API
-if a ConfigMap named `{app_name}-user-values` exists in the tenant cluster
-namespace on the control plane.
+if a ConfigMap named `{app_name}-user-values` exists in the workload cluster
+namespace on the management cluster.
 
 The `/v4/clusters/{cluster_id}/apps/{app_name}/config/` endpoints allows
 you to create such a ConfigMap using this API.
@@ -76,7 +76,7 @@ correctly for you.
 It simplifies usage while also being a security measure.
 
 Furthermore it is also a security measure and ensures that users of this
-API can't access arbitrary configmaps of the control plane.
+API can't access arbitrary configmaps of the management cluster.
 
 This API will only allow you to edit or access configmaps that adhere
 to a strict naming convention.
@@ -111,7 +111,7 @@ func (a *Client) CreateClusterAppV4(params *CreateClusterAppV4Params, authInfo r
 /*
 CreateClusterAppV5 installs an app v5
 
-Install an app on a tenant cluster by using this endpoint.
+Install an app on a workload cluster by using this endpoint.
 
 The spec field represents the app we'll be installing, and so spec.name refers to
 the name of the app in the catalog.
@@ -142,8 +142,8 @@ and check the status field of the app.
 
 ### About the user_config field in the response
 This field is not editable by you, but is set automatically by the API
-if a ConfigMap named `{app_name}-user-values` exists in the tenant cluster
-namespace on the control plane.
+if a ConfigMap named `{app_name}-user-values` exists in the workload cluster
+namespace on the management cluster.
 
 The `/v5/clusters/{cluster_id}/apps/{app_name}/config/` endpoints allows
 you to create such a ConfigMap using this API.
@@ -159,7 +159,7 @@ correctly for you.
 It simplifies usage while also being a security measure.
 
 Furthermore it is also a security measure and ensures that users of this
-API can't access arbitrary configmaps of the control plane.
+API can't access arbitrary configmaps of the management cluster.
 
 This API will only allow you to edit or access configmaps that adhere
 to a strict naming convention.
@@ -280,7 +280,7 @@ including a URL to fetch the full index of each catalog.
                   some changes to the security settings of your cluster.
 
   App Catalogs can also be labeled as `internal`, however these catalogs
-  contain apps that run on our control planes. These `internal` app catalogs
+  contain apps that run on our management clusters. These `internal` app catalogs
   will be filtered out and never shown when calling this endpoint.
 
   For more details on app catalogs visit: https://docs.giantswarm.io/basics/app-catalog/

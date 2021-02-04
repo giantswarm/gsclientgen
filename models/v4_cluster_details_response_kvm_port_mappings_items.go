@@ -15,7 +15,7 @@ import (
 // swagger:model v4ClusterDetailsResponseKvmPortMappingsItems
 type V4ClusterDetailsResponseKvmPortMappingsItems struct {
 
-	// The port on the control plane that will forward traffic to the tenant cluster
+	// The port on the management cluster that will forward traffic to the workload cluster
 	//
 	Port int64 `json:"port,omitempty"`
 

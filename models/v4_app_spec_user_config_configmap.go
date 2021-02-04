@@ -18,7 +18,7 @@ type V4AppSpecUserConfigConfigmap struct {
 	// Name of the ConfigMap containing user-values to apply, e.g. prometheus-user-values
 	Name string `json:"name,omitempty"`
 
-	// Namespace of the user-values ConfigMap on the control plane, e.g. 123ab
+	// Namespace of the user-values ConfigMap on the management cluster, e.g. 123ab
 	Namespace string `json:"namespace,omitempty"`
 }
 

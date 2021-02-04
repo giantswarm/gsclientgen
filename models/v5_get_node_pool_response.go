@@ -20,7 +20,7 @@ type V5GetNodePoolResponse struct {
 	//
 	AvailabilityZones []string `json:"availability_zones"`
 
-	// Node pool identifier. Unique within a tenant cluster.
+	// Node pool identifier. Unique within a workload cluster.
 	ID string `json:"id,omitempty"`
 
 	// Node pool name

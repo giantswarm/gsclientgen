@@ -14,12 +14,13 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// V4ClusterDetailsResponseKvm Attributes specific to clusters running on KVM (on-prem) installations.
+// V4ClusterDetailsResponseKvm Attributes specific to clusters running on KVM (on-premises) installations.
 // swagger:model v4ClusterDetailsResponseKvm
 type V4ClusterDetailsResponseKvm struct {
 
-	// Reveals the ports on the control plane that are mapped to this tenant cluster's ingress
-	// and which protocol that port supports. Only shown and relevant on our on-prem KVM clusters.
+	// Reveals the ports on the installation's load balancer that are mapped to this
+	// workload cluster's ingress and which protocol that port supports. Only shown
+	// and relevant on our on-premises KVM clusters.
 	//
 	PortMappings []*V4ClusterDetailsResponseKvmPortMappingsItems `json:"port_mappings"`
 }

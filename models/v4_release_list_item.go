@@ -19,9 +19,10 @@ import (
 // swagger:model v4ReleaseListItem
 type V4ReleaseListItem struct {
 
-	// If true, the version is available for new clusters and cluster
+	// If `true`, the version is recommended for use in cluster creation and cluster
 	// upgrades. Older versions become unavailable and thus have the
-	// value `false` here.
+	// value `false` here. Cluster creation with this version is still possible
+	// but not recommended.
 	//
 	// Required: true
 	Active bool `json:"active"`
